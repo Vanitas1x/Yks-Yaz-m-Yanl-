@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YKS Flow - Kelime Testi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #E1F5FE 0%, #B3E5FC 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 400px;
+            min-height: 700px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .timer-box, .combo-box {
+            background: white;
+            border: 2px solid #0288D1;
+            border-radius: 15px;
+            padding: 10px 15px;
+            text-align: center;
+            width: 80px;
+        }
+
+        .timer-box {
+            border-color: #D32F2F;
+        }
+
+        .combo-box {
+            border-color: #F06292;
+        }
+
+        .timer {
+            font-size: 18px;
+            font-weight: bold;
+            color: #D32F2F;
+        }
+
+        .combo {
+            font-size: 18px;
+            font-weight: bold;
+            color: #F06292;
+        }
+
+        .score-box {
+            background: white;
+            border: 2px solid #0288D1;
+            border-radius: 15px;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0288D1;
+        }
+
+        .question-area {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .question-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            border: 2.5px solid #0288D1;
+            border-radius: 30px;
+            padding: 25px 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(79, 195, 247, 0.4);
+        }
+
+        .card:active {
+            transform: scale(0.98);
+        }
+
+        .card-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1A237E;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 25px;
+        }
+
+        .garden {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        .garden-label {
+            font-size: 40px;
+        }
+
+        .garden-text {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .game-over {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .game-over h2 {
+            color: #D32F2F;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .final-score {
+            font-size: 36px;
+            font-weight: bold;
+            color: #0288D1;
+            margin-bottom: 10px;
+        }
+
+        .max-combo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #F06292;
+            margin-bottom: 30px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1A237E;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(79, 195, 247, 0.4);
+        }
+
+        .correct {
+            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%) !important;
+            border-color: #388E3C !important;
+        }
+
+        .wrong {
+            background: linear-gradient(135deg, #E57373 0%, #EF5350 100%) !important;
+            border-color: #D32F2F !important;
+        }
+
+        .time-bonus {
+            animation: pulse 0.5s ease;
+            color: #388E3C;
+        }
+
+        .time-penalty {
+            animation: shake 0.5s ease;
+            color: #D32F2F;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <div class="timer-box">
+                <div class="timer" id="timer">60s</div>
+            </div>
+            <div class="score-box">
+                <div class="score" id="score">0 PTS</div>
+            </div>
+            <div class="combo-box">
+                <div class="combo" id="combo">🔥 0</div>
+            </div>
+        </div>
+
+        <div class="question-area" id="question-area">
+            <div class="question-label">Doğru yazımı seç:</div>
+            <div class="card" id="card1" onclick="checkAnswer(0)">
+                <div class="card-text" id="btn1-text">...</div>
+            </div>
+            <div class="card" id="card2" onclick="checkAnswer(1)">
+                <div class="card-text" id="btn2-text">...</div>
+            </div>
+        </div>
+
+        <div class="garden" id="garden">
+            <div class="garden-label">🪴</div>
+            <div class="garden-text" id="garden-text"></div>
+        </div>
+
+        <div class="game-over" id="game-over">
+            <h2>BİTTİ!</h2>
+            <div class="final-score" id="final-score">0 PTS</div>
+            <div class="max-combo" id="max-combo-display">🔥 En Yüksek Combo: 0</div>
+            <button class="restart-btn" onclick="restartGame()">Tekrar Oyna</button>
+        </div>
+    </div>
+
+    <script>
+        const masterList = [
+{"d":"ön söz","y":"önsöz"},
+{"d":"öngörü","y":"ön görü"},
+{"d":"ön yargı","y":"önyargı"},
+{"d":"önsezi","y":"ön sezi"},
+{"d":"ön lisans","y":"önlisans"},
+{"d":"ön kayıt","y":"önkayıt"},
+{"d":"gözyaşı","y":"göz yaşı"},
+{"d":"gözdağı","y":"göz dağı"},
+{"d":"göz önü","y":"gözönü"},
+{"d":"hoş geldin","y":"hoşgeldin"},
+{"d":"hoşça kal","y":"hoşçakal"},
+{"d":"hoşgörü","y":"hoş görü"},
+{"d":"sağ ol","y":"sağol"},
+{"d":"var ol","y":"varol"},
+{"d":"özveri","y":"öz veri"},
+{"d":"öz eleştiri","y":"özeleştiri"},
+{"d":"öz geçmiş","y":"özgeçmiş"},
+{"d":"öz güven","y":"özgüven"},
+{"d":"üst geçit","y":"üstgeçit"},
+{"d":"alt geçit","y":"altgeçit"},
+{"d":"yer üstü","y":"yerüstü"},
+{"d":"su altı","y":"sualtı"},
+{"d":"akşamüstü","y":"akşam üstü"},
+{"d":"suçüstü","y":"suç üstü"},
+{"d":"altüst","y":"alt üst"},
+{"d":"altyapı","y":"alt yapı"},
+{"d":"bilinçaltı","y":"bilinç altı"},
+{"d":"yeryüzü","y":"yer yüzü"},
+{"d":"gökyüzü","y":"gök yüzü"},
+{"d":"günbegün","y":"gün be gün"},
+{"d":"her an","y":"heran"},
+{"d":"şu an","y":"şuan"},
+{"d":"bir an","y":"biran"},
+{"d":"anbean","y":"an bean"},
+{"d":"yanı sıra","y":"yanısıra"},
+{"d":"peşi sıra","y":"peşisıra"},
+{"d":"sıra dışı","y":"sıradışı"},
+{"d":"yurt dışı","y":"yurtdışı"},
+{"d":"çevrim dışı","y":"çevrimdışı"},
+{"d":"yasa dışı","y":"yasadışı"},
+{"d":"hafta içi","y":"haftaiçi"},
+{"d":"yurt içi","y":"yurtiçi"},
+{"d":"yeşil biber","y":"yeşilbiber"},
+{"d":"yeşil çay","y":"yeşilçay"},
+{"d":"kırmızıbiber","y":"kırmızı biber"},
+{"d":"karabiber","y":"kara biber"},
+{"d":"kuru soğan","y":"kurusoğan"},
+{"d":"kuru fasulye","y":"kurufasulye"},
+{"d":"çiğ börek","y":"çi börek"},
+{"d":"alinazik","y":"ali nazik"},
+{"d":"dereotu","y":"dere otu"},
+{"d":"semizotu","y":"semiz otu"},
+{"d":"zeytinyağı","y":"zeytin yağı"},
+{"d":"tereyağı","y":"tere yağı"},
+{"d":"orijinal","y":"orjinal"},
+{"d":"unvan","y":"ünvan"},
+{"d":"tıraş","y":"traş"},
+{"d":"kılavuz","y":"klavuz"},
+{"d":"doküman","y":"döküman"},
+{"d":"egzoz","y":"eksoz"},
+{"d":"laboratuvar","y":"laboratuar"},
+{"d":"inisiyatif","y":"insiyatif"},
+{"d":"antrenman","y":"antreman"},
+{"d":"sömestir","y":"sömestr"},
+{"d":"milletlerarası","y":"milletler arası"},
+{"d":"uluslararası","y":"uluslar arası"},
+{"d":"Marmaraereğlisi","y":"Marmara Ereğlisi"},
+{"d":"Doğubayazıt","y":"Doğu Bayazıt"},
+{"d":"birçok","y":"bir çok"},
+{"d":"birkaç","y":"bir kaç"},
+{"d":"her şey","y":"herşey"},
+{"d":"pek çok","y":"pekçok"},
+{"d":"hiçbir","y":"hiç bir"},
+{"d":"herhangi bir","y":"herhangibir"},
+{"d":"vatansever","y":"vatan sever"},
+{"d":"hayvansever","y":"hayvan sever"},
+{"d":"başüstüne","y":"baş üstüne"},
+{"d":"terk etmek","y":"terketmek"},
+{"d":"ayırt etmek","y":"ayırdetmek"},
+{"d":"fark etmek","y":"farkatmek"},
+{"d":"değil mi","y":"değilmi"},
+{"d":"bir şey","y":"birşey"},
+{"d":"hiç kimse","y":"hiçkimse"},
+{"d":"herkes","y":"her kes"},
+{"d":"herhangi","y":"her hangi"},
+{"d":"herhalde","y":"her halde"},
+{"d":"o kadar","y":"okadar"},
+{"d":"az da","y":"azda"},
+{"d":"çok da","y":"çokda"},
+{"d":"sen de","y":"sende"},
+{"d":"ben de","y":"bende"},
+{"d":"o da","y":"oda"},
+{"d":"iyi ki","y":"iyiki"},
+{"d":"demek ki","y":"demekki"},
+{"d":"madem ki","y":"mademki"},
+{"d":"oysaki","y":"oysa ki"},
+
+{"d":"hiç değilse","y":"hiçdeğilse"},
+{"d":"en az","y":"enaz"},
+{"d":"en çok","y":"ençok"},
+{"d":"bir türlü","y":"birtürlü"},
+{"d":"bir hayli","y":"birhayli"},
+{"d":"pekâlâ","y":"pek ala"},
+{"d":"ola ki","y":"olaki"},
+{"d":"neyse ki","y":"neyseki"},
+
+{"d":"öyle ki","y":"öyleki"},
+{"d":"söz konusu","y":"sözkonusu"},
+{"d":"bir araya","y":"biraraya"},
+{"d":"bir arada","y":"birarada"},
+{"d":"bir başına","y":"birbaşına"},
+{"d":"tek başına","y":"tekbaşına"},
+{"d":"yan yana","y":"yanyana"},
+{"d":"iç içe","y":"içiçe"},
+
+
+{"d":"yüz yüze","y":"yüzyüze"},
+{"d":"yanı başında","y":"yanıbaşında"},
+{"d":"hemen hemen","y":"hemenhemen"},
+{"d":"yer yer","y":"yeryer"},
+{"d":"zaman zaman","y":"zamanzaman"},
+{"d":"git gide","y":"gitgide"},
+{"d":"günden güne","y":"gündengüne"},
+{"d":"elden ele","y":"eldenele"},
+
+
+{"d":"az çok","y":"azçok"},
+{"d":"gece gündüz","y":"gecegündüz"},
+{"d":"güç bela","y":"güçbela"},
+{"d":"derme çatma","y":"dermeçatma"},
+{"d":"bile bile","y":"bilebile"},
+{"d":"her biri","y":"herbiri"},
+{"d":"hiçbiri","y":"hiç biri"},
+{"d":"bir kısmı","y":"birkısmı"},
+{"d":"çoğu zaman","y":"çoğuzaman"},
+{"d":"orta halli","y":"ortahalli"},
+{"d":"ileri görüşlü","y":"ilerigörüşlü"},
+
+{"d":"üstünkörü","y":"üstün körü"},
+{"d":"olur olmaz","y":"olurolmaz"},
+{"d":"yarı yarıya","y":"yarıyarıya"},
+{"d":"toptan satış","y":"toptansatış"},
+{"d":"perakende satış","y":"perakendesatış"},
+{"d":"açık açık","y":"açıkaçık"},
+{"d":"kapalı kapılar ardında","y":"kapalıkapılarardında"},
+{"d":"her nasılsa","y":"hernasılsa"},
+
+{"d":"birden","y":"bir den"},
+{"d":"birdenbire","y":"bir den bire"},
+{"d":"gitgide","y":"git gide"},
+{"d":"gelişigüzel","y":"gelişi güzel"},
+{"d":"suspus","y":"sus pus"},
+{"d":"apayrı","y":"ap ayrı"},
+{"d":"ardarda","y":"artar da"},
+{"d":"art arda","y":"ardarda"},
+
+{"d":"iş birliği","y":"işbirliği"},
+{"d":"güç birliği","y":"güçbirliği"},
+{"d":"oy birliği","y":"oybirliği"},
+{"d":"el birliği","y":"elbirliği"},
+
+{"d":"vazgeçmek","y":"vaz geçmek"},
+{"d":"kaybolmak","y":"kayıp olmak"},
+{"d":"öngörmek","y":"ön görmek"},
+{"d":"reddetmek","y":"red etmek"},
+{"d":"affetmek","y":"af etmek"},
+{"d":"hissetmek","y":"his etmek"},
+{"d":"kaydetmek","y":"kayıt etmek"},
+
+{"d":"cankurtaran","y":"can kurtaran"},
+{"d":"devekuşu","y":"deve kuşu"},
+{"d":"hamamböceği","y":"hamam böceği"},
+{"d":"uğurböceği","y":"uğur böceği"},
+{"d":"sivrisinek","y":"sivri sinek"},
+{"d":"ateşböceği","y":"ateş böceği"},
+{"d":"karadut","y":"kara dut"},
+{"d":"kuşburnu","y":"kuş burnu"},
+
+{"d":"buzdolabı","y":"buz dolabı"},
+{"d":"ipucu","y":"ip ucu"},
+{"d":"işyeri","y":"iş yeri"},
+{"d":"işbaşı","y":"iş başı"},
+{"d":"başsağlığı","y":"baş sağlığı"},
+{"d":"havaalanı","y":"hava alanı"},
+{"d":"karayolu","y":"kara yolu"},
+{"d":"demiryolu","y":"demir yolu"},
+{"d":"havayolu","y":"hava yolu"},
+
+{"d":"anaokulu","y":"ana okulu"},
+{"d":"anayasa","y":"ana yasa"},
+{"d":"anapara","y":"ana para"},
+{"d":"yüksekokul","y":"yüksek okul"},
+{"d":"ortaokul","y":"orta okul"},
+{"d":"yükseköğretim","y":"yüksek öğretim"},
+{"d":"açıköğretim","y":"açık öğretim"},
+
+{"d":"yılbaşı","y":"yıl başı"},
+{"d":"köşebaşı","y":"köşe başı"},
+{"d":"masabaşı","y":"masa başı"},
+{"d":"elebaşı","y":"el başı"},
+
+{"d":"aklı sıra","y":"aklısıra"},
+{"d":"ara sıra","y":"arasıra"},
+{"d":"ardı sıra","y":"ardısıra"},
+{"d":"sıradağ","y":"sıra dağ"},
+
+{"d":"olağan dışı","y":"olağandışı"},
+{"d":"gözaltı","y":"göz altı"},
+{"d":"göz önünde","y":"gözönünde"},
+{"d":"el altı","y":"elaltı"},
+{"d":"el üstünde","y":"elüstünde"},
+{"d":"baş tacı","y":"baş tacı"},
+{"d":"can simidi","y":"cansimidi"},
+
+{"d":"bugün","y":"bu gün"},
+{"d":"öbür gün","y":"öbürgün"},
+{"d":"şimdiki","y":"şimdi ki"},
+{"d":"buradaki","y":"burada ki"},
+{"d":"oradaki","y":"orada ki"}
+
+];
+
+        const flowers = ["🌸", "🌼", "🌷", "🌻", "🌹", "🌺","🪻","🪷","🌿"];
+
+        let pool = [];
+        let score = 0;
+        let combo = 0;
+        let maxCombo = 0;
+        let time = 60;
+        let gardenStr = "";
+        let correctIdx = 0; // 0 or 1 - which button has the correct answer
+        let timerInterval = null;
+        let gameActive = true;
+        let currentQ = null;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function nextQ() {
+            if (pool.length === 0) {
+                pool = [...masterList];
+                shuffle(pool);
+            }
+            currentQ = pool.pop();
+            
+            // Randomly decide which button gets the correct answer
+            // If rev is true: btn1 gets wrong (y), btn2 gets correct (d)
+            // If rev is false: btn1 gets correct (d), btn2 gets wrong (y)
+            const rev = Math.random() > 0.5;
+            
+            if (rev) {
+                // Button 1 (index 0) shows wrong, Button 2 (index 1) shows correct
+                document.getElementById('btn1-text').textContent = currentQ['y']; // wrong
+                document.getElementById('btn2-text').textContent = currentQ['d']; // correct
+                correctIdx = 1;
+            } else {
+                // Button 1 (index 0) shows correct, Button 2 (index 1) shows wrong
+                document.getElementById('btn1-text').textContent = currentQ['d']; // correct
+                document.getElementById('btn2-text').textContent = currentQ['y']; // wrong
+                correctIdx = 0;
+            }
+
+            document.getElementById('card1').classList.remove('correct', 'wrong');
+            document.getElementById('card2').classList.remove('correct', 'wrong');
+        }
+
+        function checkAnswer(idx) {
+            if (!gameActive || time <= 0) return;
+
+            const card1 = document.getElementById('card1');
+            const card2 = document.getElementById('card2');
+            const timerEl = document.getElementById('timer');
+
+            if (idx === correctIdx) {
+                // CORRECT ANSWER
+                combo++;
+                score += 10 * combo;
+                
+                // Update max combo
+                if (combo > maxCombo) {
+                    maxCombo = combo;
+                }
+                
+                // Every 5 combo = +10 seconds
+                if (combo % 5 === 0) {
+                    time += 10;
+                    timerEl.classList.add('time-bonus');
+                    setTimeout(() => timerEl.classList.remove('time-bonus'), 500);
+                }
+                
+                // Visual feedback
+                if (idx === 0) {
+                    card1.classList.add('correct');
+                } else {
+                    card2.classList.add('correct');
+                }
+
+                // Flower every 3 combo
+                if (combo % 3 === 0) {
+                    gardenStr += flowers[Math.floor(Math.random() * flowers.length)];
+                    document.getElementById('garden-text').textContent = gardenStr;
+                }
+            } else {
+                // WRONG ANSWER
+                combo = 0;
+                time = Math.max(0, time - 2); // Prevent negative time
+                
+                timerEl.classList.add('time-penalty');
+                setTimeout(() => timerEl.classList.remove('time-penalty'), 500);
+                
+                if (idx === 0) {
+                    card1.classList.add('wrong');
+                } else {
+                    card2.classList.add('wrong');
+                }
+            }
+
+            document.getElementById('score').textContent = score + " PTS";
+            document.getElementById('combo').textContent = "🔥 " + combo;
+            document.getElementById('timer').textContent = time + "s";
+
+            // Check if time ran out from penalty
+            if (time <= 0) {
+                setTimeout(endGame, 300);
+            } else {
+                setTimeout(nextQ, 300);
+            }
+        }
+
+        function tick() {
+            if (time > 0) {
+                time--;
+                document.getElementById('timer').textContent = time + "s";
+                if (time <= 0) {
+                    endGame();
+                }
+            }
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(timerInterval);
+            document.getElementById('question-area').style.display = 'none';
+            document.getElementById('garden').style.display = 'none';
+            document.getElementById('game-over').style.display = 'block';
+            document.getElementById('final-score').textContent = score + " PTS";
+            document.getElementById('max-combo-display').textContent = "🔥 En Yüksek Combo: " + maxCombo;
+        }
+
+        function restartGame() {
+            pool = [...masterList];
+            shuffle(pool);
+            score = 0;
+            combo = 0;
+            maxCombo = 0;
+            time = 60;
+            gardenStr = "";
+            gameActive = true;
+
+            document.getElementById('score').textContent = "0 PTS";
+            document.getElementById('combo').textContent = "🔥 0";
+            document.getElementById('timer').textContent = "60s";
+            document.getElementById('garden-text').textContent = "";
+            document.getElementById('question-area').style.display = 'block';
+            document.getElementById('garden').style.display = 'block';
+            document.getElementById('game-over').style.display = 'none';
+
+            nextQ();
+            timerInterval = setInterval(tick, 1000);
+        }
+
+        // Initialize game
+        pool = [...masterList];
+        shuffle(pool);
+        nextQ();
+        timerInterval = setInterval(tick, 1000);
+    </script>
+</body>
+</html>

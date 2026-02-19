@@ -29,6 +29,8 @@
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
         .header {
@@ -161,24 +163,40 @@
             font-size: 24px;
             font-weight: bold;
             color: #F06292;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        .restart-btn {
-            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+        .game-over-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .restart-btn, .review-btn {
             border: none;
             border-radius: 25px;
             padding: 15px 40px;
             font-size: 18px;
             font-weight: bold;
-            color: #1A237E;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .restart-btn:hover {
+        .restart-btn {
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            color: #1A237E;
+        }
+
+        .review-btn {
+            background: linear-gradient(135deg, #FF8A65 0%, #FF7043 100%);
+            color: white;
+            border: 2px solid #E64A19;
+        }
+
+        .restart-btn:hover, .review-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(79, 195, 247, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         .correct {
@@ -211,42 +229,373 @@
             25% { transform: translateX(-5px); }
             75% { transform: translateX(5px); }
         }
+
+        /* Start Menu Styles */
+        .start-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 600px;
+            text-align: center;
+        }
+
+        .record-display {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
+            border: 3px solid #FF8F00;
+            border-radius: 20px;
+            padding: 15px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(255, 160, 0, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 4px 15px rgba(255, 160, 0, 0.3); }
+            to { box-shadow: 0 6px 25px rgba(255, 160, 0, 0.5); }
+        }
+
+        .record-label {
+            font-size: 14px;
+            color: #E65100;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .record-score {
+            font-size: 32px;
+            font-weight: bold;
+            color: #BF360C;
+            margin-top: 5px;
+        }
+
+        .start-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #0288D1;
+            margin-bottom: 10px;
+        }
+
+        .start-subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .time-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .time-btn {
+            background: white;
+            border: 3px solid #0288D1;
+            border-radius: 20px;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #0288D1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .time-btn:hover {
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(79, 195, 247, 0.4);
+        }
+
+        .time-btn.selected {
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            color: white;
+        }
+
+        .start-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 18px 50px;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(129, 199, 132, 0.4);
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(129, 199, 132, 0.6);
+        }
+
+        .start-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .game-content {
+            display: none;
+        }
+
+        .emoji-icon {
+            font-size: 24px;
+        }
+
+        .new-record {
+            animation: celebrate 1s ease;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2) rotate(-5deg); }
+            50% { transform: scale(1.3) rotate(5deg); }
+            75% { transform: scale(1.2) rotate(-5deg); }
+        }
+
+        /* Review Screen Styles */
+        .review-screen {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 100;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .review-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .review-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #D32F2F;
+            margin-bottom: 5px;
+        }
+
+        .review-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .mistake-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 80px;
+        }
+
+        .mistake-item {
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mistake-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .wrong-answer {
+            color: #D32F2F;
+            text-decoration: line-through;
+            font-weight: bold;
+        }
+
+        .correct-answer {
+            color: #388E3C;
+            font-weight: bold;
+            background: #E8F5E9;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 2px solid #81C784;
+        }
+
+        .arrow-icon {
+            color: #999;
+            font-size: 20px;
+        }
+
+        .mistake-number {
+            background: #FFCDD2;
+            color: #D32F2F;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .review-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .close-review-btn {
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            border: none;
+            border-radius: 20px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-review-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .no-mistakes {
+            text-align: center;
+            padding: 60px 20px;
+            color: #388E3C;
+        }
+
+        .no-mistakes-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .no-mistakes-text {
+            font-size: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="game-container">
-        <div class="header">
-            <div class="timer-box">
-                <div class="timer" id="timer">60s</div>
+        <!-- Start Menu -->
+        <div class="start-menu" id="start-menu">
+            <div class="record-display" id="record-display">
+                <div class="record-label">🏆 REKOR</div>
+                <div class="record-score" id="record-score">0 PTS</div>
             </div>
-            <div class="score-box">
-                <div class="score" id="score">0 PTS</div>
+            
+            <div class="start-title">🎯 YKS Flow</div>
+            <div class="start-subtitle">Kelime Testi</div>
+            
+            <div class="time-options">
+                <button class="time-btn" onclick="selectTime(30, this)">
+                    <span class="emoji-icon">⚡</span>
+                    <span>30 Saniye</span>
+                </button>
+                <button class="time-btn" onclick="selectTime(60, this)">
+                    <span class="emoji-icon">⏱️</span>
+                    <span>1 Dakika</span>
+                </button>
+                <button class="time-btn" onclick="selectTime(120, this)">
+                    <span class="emoji-icon">🕐</span>
+                    <span>2 Dakika</span>
+                </button>
             </div>
-            <div class="combo-box">
-                <div class="combo" id="combo">🔥 0</div>
+            
+            <button class="start-btn" id="start-btn" onclick="startGame()" disabled>
+                Başla! 🚀
+            </button>
+        </div>
+
+        <!-- Game Content -->
+        <div class="game-content" id="game-content">
+            <div class="header">
+                <div class="timer-box">
+                    <div class="timer" id="timer">60s</div>
+                </div>
+                <div class="score-box">
+                    <div class="score" id="score">0 PTS</div>
+                </div>
+                <div class="combo-box">
+                    <div class="combo" id="combo">🔥 0</div>
+                </div>
+            </div>
+
+            <div class="question-area" id="question-area">
+                <div class="question-label">Doğru yazımı seç:</div>
+                <div class="card" id="card1" onclick="checkAnswer(0)">
+                    <div class="card-text" id="btn1-text">...</div>
+                </div>
+                <div class="card" id="card2" onclick="checkAnswer(1)">
+                    <div class="card-text" id="btn2-text">...</div>
+                </div>
+            </div>
+
+            <div class="garden" id="garden">
+                <div class="garden-label">🪴</div>
+                <div class="garden-text" id="garden-text"></div>
             </div>
         </div>
 
-        <div class="question-area" id="question-area">
-            <div class="question-label">Doğru yazımı seç:</div>
-            <div class="card" id="card1" onclick="checkAnswer(0)">
-                <div class="card-text" id="btn1-text">...</div>
-            </div>
-            <div class="card" id="card2" onclick="checkAnswer(1)">
-                <div class="card-text" id="btn2-text">...</div>
-            </div>
-        </div>
-
-        <div class="garden" id="garden">
-            <div class="garden-label">🪴</div>
-            <div class="garden-text" id="garden-text"></div>
-        </div>
-
+        <!-- Game Over Screen -->
         <div class="game-over" id="game-over">
             <h2>BİTTİ!</h2>
             <div class="final-score" id="final-score">0 PTS</div>
             <div class="max-combo" id="max-combo-display">🔥 En Yüksek Combo: 0</div>
-            <button class="restart-btn" onclick="restartGame()">Tekrar Oyna</button>
+            <div class="game-over-buttons">
+                <button class="review-btn" onclick="showReview()">
+                    📋 Hataları Gözden Geçir
+                </button>
+                <button class="restart-btn" onclick="restartGame()">
+                    Tekrar Oyna
+                </button>
+            </div>
+        </div>
+
+        <!-- Review Screen -->
+        <div class="review-screen" id="review-screen">
+            <div class="review-header">
+                <div class="review-title">📋 Hata Analizi</div>
+                <div class="review-subtitle">Yanlış cevapladığın kelimeler</div>
+            </div>
+            
+            <div class="mistake-list" id="mistake-list">
+                <!-- Mistakes will be inserted here -->
+            </div>
+            
+            <div class="review-footer">
+                <button class="close-review-btn" onclick="closeReview()">
+                    ✓ Anladım, Geri Dön
+                </button>
+            </div>
         </div>
     </div>
 
@@ -481,11 +830,38 @@
         let combo = 0;
         let maxCombo = 0;
         let time = 60;
+        let selectedTime = 0;
         let gardenStr = "";
-        let correctIdx = 0; // 0 or 1 - which button has the correct answer
+        let correctIdx = 0;
         let timerInterval = null;
         let gameActive = true;
         let currentQ = null;
+        let highScore = 0;
+        let wrongAnswers = []; // Array to store wrong answers
+
+        // Load high score from localStorage
+        function loadHighScore() {
+            const saved = localStorage.getItem('yksFlowHighScore');
+            if (saved) {
+                highScore = parseInt(saved, 10);
+            }
+            updateRecordDisplay();
+        }
+
+        // Save high score to localStorage
+        function saveHighScore(newScore) {
+            if (newScore > highScore) {
+                highScore = newScore;
+                localStorage.setItem('yksFlowHighScore', highScore);
+                return true;
+            }
+            return false;
+        }
+
+        // Update record display on start menu
+        function updateRecordDisplay() {
+            document.getElementById('record-score').textContent = highScore + " PTS";
+        }
 
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -495,6 +871,43 @@
             return array;
         }
 
+        function selectTime(seconds, btn) {
+            selectedTime = seconds;
+            
+            // Remove selected class from all buttons
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+            
+            // Add selected class to clicked button
+            btn.classList.add('selected');
+            
+            // Enable start button
+            document.getElementById('start-btn').disabled = false;
+        }
+
+        function startGame() {
+            if (selectedTime === 0) return;
+            
+            time = selectedTime;
+            wrongAnswers = []; // Reset wrong answers
+            
+            // Hide start menu, show game content
+            document.getElementById('start-menu').style.display = 'none';
+            document.getElementById('game-content').style.display = 'block';
+            
+            // Initialize game
+            pool = [...masterList];
+            shuffle(pool);
+            nextQ();
+            updateDisplay();
+            timerInterval = setInterval(tick, 1000);
+        }
+
+        function updateDisplay() {
+            document.getElementById('timer').textContent = time + "s";
+            document.getElementById('score').textContent = score + " PTS";
+            document.getElementById('combo').textContent = "🔥 " + combo;
+        }
+
         function nextQ() {
             if (pool.length === 0) {
                 pool = [...masterList];
@@ -502,20 +915,15 @@
             }
             currentQ = pool.pop();
             
-            // Randomly decide which button gets the correct answer
-            // If rev is true: btn1 gets wrong (y), btn2 gets correct (d)
-            // If rev is false: btn1 gets correct (d), btn2 gets wrong (y)
             const rev = Math.random() > 0.5;
             
             if (rev) {
-                // Button 1 (index 0) shows wrong, Button 2 (index 1) shows correct
-                document.getElementById('btn1-text').textContent = currentQ['y']; // wrong
-                document.getElementById('btn2-text').textContent = currentQ['d']; // correct
+                document.getElementById('btn1-text').textContent = currentQ['y'];
+                document.getElementById('btn2-text').textContent = currentQ['d'];
                 correctIdx = 1;
             } else {
-                // Button 1 (index 0) shows correct, Button 2 (index 1) shows wrong
-                document.getElementById('btn1-text').textContent = currentQ['d']; // correct
-                document.getElementById('btn2-text').textContent = currentQ['y']; // wrong
+                document.getElementById('btn1-text').textContent = currentQ['d'];
+                document.getElementById('btn2-text').textContent = currentQ['y'];
                 correctIdx = 0;
             }
 
@@ -531,38 +939,39 @@
             const timerEl = document.getElementById('timer');
 
             if (idx === correctIdx) {
-                // CORRECT ANSWER
                 combo++;
                 score += 10 * combo;
                 
-                // Update max combo
                 if (combo > maxCombo) {
                     maxCombo = combo;
                 }
                 
-                // Every 5 combo = +10 seconds
                 if (combo % 5 === 0) {
                     time += 10;
                     timerEl.classList.add('time-bonus');
                     setTimeout(() => timerEl.classList.remove('time-bonus'), 500);
                 }
                 
-                // Visual feedback
                 if (idx === 0) {
                     card1.classList.add('correct');
                 } else {
                     card2.classList.add('correct');
                 }
 
-                // Flower every 3 combo
                 if (combo % 3 === 0) {
                     gardenStr += flowers[Math.floor(Math.random() * flowers.length)];
                     document.getElementById('garden-text').textContent = gardenStr;
                 }
             } else {
-                // WRONG ANSWER
+                // WRONG ANSWER - Save to review list
                 combo = 0;
-                time = Math.max(0, time - 2); // Prevent negative time
+                time = Math.max(0, time - 2);
+                
+                // Store the mistake for review
+                wrongAnswers.push({
+                    correct: currentQ['d'],
+                    wrong: currentQ['y']
+                });
                 
                 timerEl.classList.add('time-penalty');
                 setTimeout(() => timerEl.classList.remove('time-penalty'), 500);
@@ -578,7 +987,6 @@
             document.getElementById('combo').textContent = "🔥 " + combo;
             document.getElementById('timer').textContent = time + "s";
 
-            // Check if time ran out from penalty
             if (time <= 0) {
                 setTimeout(endGame, 300);
             } else {
@@ -599,40 +1007,105 @@
         function endGame() {
             gameActive = false;
             clearInterval(timerInterval);
-            document.getElementById('question-area').style.display = 'none';
-            document.getElementById('garden').style.display = 'none';
+            
+            // Check and save high score
+            const isNewRecord = saveHighScore(score);
+            
+            document.getElementById('game-content').style.display = 'none';
             document.getElementById('game-over').style.display = 'block';
-            document.getElementById('final-score').textContent = score + " PTS";
+            
+            const finalScoreEl = document.getElementById('final-score');
+            finalScoreEl.textContent = score + " PTS";
+            
+            // Add celebration animation if new record
+            if (isNewRecord) {
+                finalScoreEl.classList.add('new-record');
+                document.querySelector('.game-over h2').textContent = "🏆 YENİ REKOR!";
+                document.querySelector('.game-over h2').style.color = "#FFD700";
+            } else {
+                finalScoreEl.classList.remove('new-record');
+                document.querySelector('.game-over h2').textContent = "BİTTİ!";
+                document.querySelector('.game-over h2').style.color = "#D32F2F";
+            }
+            
             document.getElementById('max-combo-display').textContent = "🔥 En Yüksek Combo: " + maxCombo;
+            
+            // Hide review button if no mistakes
+            const reviewBtn = document.querySelector('.review-btn');
+            if (wrongAnswers.length === 0) {
+                reviewBtn.style.display = 'none';
+            } else {
+                reviewBtn.style.display = 'block';
+                reviewBtn.textContent = `📋 Hataları Gözden Geçir (${wrongAnswers.length})`;
+            }
+        }
+
+        function showReview() {
+            const reviewScreen = document.getElementById('review-screen');
+            const mistakeList = document.getElementById('mistake-list');
+            
+            // Clear previous content
+            mistakeList.innerHTML = '';
+            
+            if (wrongAnswers.length === 0) {
+                // Show perfect score message
+                mistakeList.innerHTML = `
+                    <div class="no-mistakes">
+                        <div class="no-mistakes-icon">🎉</div>
+                        <div class="no-mistakes-text">Mükemmel!<br>Hiç hata yapmadın!</div>
+                    </div>
+                `;
+            } else {
+                // Show each mistake
+                wrongAnswers.forEach((mistake, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'mistake-item';
+                    item.innerHTML = `
+                        <div class="mistake-row">
+                            <span class="mistake-number">${index + 1}</span>
+                            <span class="wrong-answer">${mistake.wrong}</span>
+                            <span class="arrow-icon">→</span>
+                            <span class="correct-answer">${mistake.correct}</span>
+                        </div>
+                    `;
+                    mistakeList.appendChild(item);
+                });
+            }
+            
+            reviewScreen.style.display = 'block';
+        }
+
+        function closeReview() {
+            document.getElementById('review-screen').style.display = 'none';
         }
 
         function restartGame() {
-            pool = [...masterList];
-            shuffle(pool);
+            // Reset game state
+            pool = [];
             score = 0;
             combo = 0;
             maxCombo = 0;
-            time = 60;
             gardenStr = "";
             gameActive = true;
-
-            document.getElementById('score').textContent = "0 PTS";
-            document.getElementById('combo').textContent = "🔥 0";
-            document.getElementById('timer').textContent = "60s";
-            document.getElementById('garden-text').textContent = "";
-            document.getElementById('question-area').style.display = 'block';
-            document.getElementById('garden').style.display = 'block';
+            selectedTime = 0;
+            wrongAnswers = [];
+            
+            // Update record display before showing menu
+            updateRecordDisplay();
+            
+            // Hide game over, show start menu
             document.getElementById('game-over').style.display = 'none';
-
-            nextQ();
-            timerInterval = setInterval(tick, 1000);
+            document.getElementById('start-menu').style.display = 'flex';
+            document.getElementById('game-content').style.display = 'none';
+            
+            // Reset UI
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+            document.getElementById('start-btn').disabled = true;
+            document.getElementById('garden-text').textContent = "";
         }
 
-        // Initialize game
-        pool = [...masterList];
-        shuffle(pool);
-        nextQ();
-        timerInterval = setInterval(tick, 1000);
+        // Initialize high score on page load
+        loadHighScore();
     </script>
 </body>
 </html>

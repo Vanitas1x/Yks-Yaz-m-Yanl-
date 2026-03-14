@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YKS Flow - Kelime Testi</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #E1F5FE 0%, #B3E5FC 100%);
@@ -20,7 +15,6 @@
             align-items: center;
             padding: 20px;
         }
-
         .game-container {
             width: 100%;
             max-width: 400px;
@@ -32,14 +26,12 @@
             position: relative;
             overflow: hidden;
         }
-
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-
         .timer-box, .combo-box {
             background: white;
             border: 2px solid #0288D1;
@@ -48,27 +40,10 @@
             text-align: center;
             width: 80px;
         }
-
-        .timer-box {
-            border-color: #D32F2F;
-        }
-
-        .combo-box {
-            border-color: #F06292;
-        }
-
-        .timer {
-            font-size: 18px;
-            font-weight: bold;
-            color: #D32F2F;
-        }
-
-        .combo {
-            font-size: 18px;
-            font-weight: bold;
-            color: #F06292;
-        }
-
+        .timer-box { border-color: #D32F2F; }
+        .combo-box { border-color: #F06292; }
+        .timer { font-size: 18px; font-weight: bold; color: #D32F2F; }
+        .combo { font-size: 18px; font-weight: bold; color: #F06292; }
         .score-box {
             background: white;
             border: 2px solid #0288D1;
@@ -76,13 +51,7 @@
             padding: 10px 20px;
             text-align: center;
         }
-
-        .score {
-            font-size: 22px;
-            font-weight: bold;
-            color: #0288D1;
-        }
-
+        .score { font-size: 22px; font-weight: bold; color: #0288D1; }
         .mode-indicator {
             text-align: center;
             margin-bottom: 10px;
@@ -93,31 +62,11 @@
             display: inline-block;
             align-self: center;
         }
-
-        .mode-easy {
-            background: #E8F5E9;
-            color: #388E3C;
-            border: 2px solid #81C784;
-        }
-
-        .mode-hard {
-            background: #FFEBEE;
-            color: #C62828;
-            border: 2px solid #EF5350;
-        }
-
-        .question-area {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .question-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
+        .mode-easy { background: #E8F5E9; color: #388E3C; border: 2px solid #81C784; }
+        .mode-hard { background: #FFEBEE; color: #C62828; border: 2px solid #EF5350; }
+        .mode-ki { background: #EDE7F6; color: #512DA8; border: 2px solid #9575CD; }
+        .question-area { margin-top: 20px; margin-bottom: 20px; text-align: center; }
+        .question-label { font-size: 14px; color: #666; margin-bottom: 10px; }
         .card {
             background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
             border: 2.5px solid #0288D1;
@@ -128,16 +77,8 @@
             transition: all 0.3s ease;
             text-align: center;
         }
-
-        .card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(79, 195, 247, 0.4);
-        }
-
-        .card:active {
-            transform: scale(0.98);
-        }
-
+        .card:hover { transform: scale(1.02); box-shadow: 0 8px 25px rgba(79, 195, 247, 0.4); }
+        .card:active { transform: scale(0.98); }
         .card-text {
             font-size: 18px;
             font-weight: bold;
@@ -146,66 +87,71 @@
             padding: 12px 15px;
             border-radius: 15px;
         }
-
-        .card-hard {
-            padding: 15px 12px;
-            margin: 8px 0;
-        }
-
-        .card-text-hard {
-            font-size: 16px;
-            padding: 10px 12px;
-        }
-
-        .garden {
+        .card-hard { padding: 15px 12px; margin: 8px 0; }
+        .card-text-hard { font-size: 16px; padding: 10px 12px; }
+        /* Ki mode sentence card */
+        .ki-sentence-card {
+            background: linear-gradient(135deg, #EDE7F6 0%, #D1C4E9 100%);
+            border: 2.5px solid #7E57C2;
+            border-radius: 20px;
+            padding: 20px 15px;
+            margin: 10px 0 20px 0;
             text-align: center;
-            margin-top: 30px;
+        }
+        .ki-sentence-text {
+            font-size: 17px;
+            font-weight: bold;
+            color: #311B92;
+            background: white;
             padding: 15px;
+            border-radius: 15px;
+            line-height: 1.6;
         }
-
-        .garden-label {
-            font-size: 40px;
+        .ki-highlight {
+            background: #FFE082;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #E65100;
         }
-
-        .garden-text {
-            font-size: 16px;
-            color: #666;
+        .ki-answer-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
             margin-top: 10px;
         }
-
-        .game-over {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .game-over h2 {
-            color: #D32F2F;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .final-score {
-            font-size: 36px;
+        .ki-btn {
+            flex: 1;
+            padding: 18px 10px;
+            border: none;
+            border-radius: 15px;
+            font-size: 20px;
             font-weight: bold;
-            color: #0288D1;
-            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-
-        .max-combo {
-            font-size: 24px;
+        .ki-btn-correct { background: linear-gradient(135deg, #81C784 0%, #4CAF50 100%); color: white; }
+        .ki-btn-wrong { background: linear-gradient(135deg, #EF5350 0%, #D32F2F 100%); color: white; }
+        .ki-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+        .ki-type-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
             font-weight: bold;
-            color: #F06292;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
         }
-
-        .game-over-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
+        .badge-sifat { background: #E3F2FD; color: #1565C0; border: 1px solid #90CAF9; }
+        .badge-zamir { background: #F3E5F5; color: #6A1B9A; border: 1px solid #CE93D8; }
+        .badge-baglac { background: #FFF3E0; color: #E65100; border: 1px solid #FFCC80; }
+        .badge-kalip { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
+        .garden { text-align: center; margin-top: 30px; padding: 15px; }
+        .garden-label { font-size: 40px; }
+        .garden-text { font-size: 16px; color: #666; margin-top: 10px; }
+        .game-over { display: none; text-align: center; padding: 40px 20px; }
+        .game-over h2 { color: #D32F2F; font-size: 28px; margin-bottom: 20px; }
+        .final-score { font-size: 36px; font-weight: bold; color: #0288D1; margin-bottom: 10px; }
+        .max-combo { font-size: 24px; font-weight: bold; color: #F06292; margin-bottom: 20px; }
+        .game-over-buttons { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
         .restart-btn, .review-btn {
             border: none;
             border-radius: 25px;
@@ -215,119 +161,35 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
-        .restart-btn {
-            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
-            color: #1A237E;
-        }
-
-        .review-btn {
-            background: linear-gradient(135deg, #FF8A65 0%, #FF7043 100%);
-            color: white;
-            border: 2px solid #E64A19;
-        }
-
-        .restart-btn:hover, .review-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .correct {
-            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%) !important;
-            border-color: #388E3C !important;
-        }
-
-        .wrong {
-            background: linear-gradient(135deg, #E57373 0%, #EF5350 100%) !important;
-            border-color: #D32F2F !important;
-        }
-
-        .time-bonus {
-            animation: pulse 0.5s ease;
-            color: #388E3C;
-        }
-
-        .time-penalty {
-            animation: shake 0.5s ease;
-            color: #D32F2F;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        /* Start Menu Styles */
-        .start-menu, .mode-menu {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 600px;
-            text-align: center;
-        }
-
-        .mode-menu {
-            display: none;
-        }
-
+        .restart-btn { background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); color: #1A237E; }
+        .review-btn { background: linear-gradient(135deg, #FF8A65 0%, #FF7043 100%); color: white; border: 2px solid #E64A19; }
+        .restart-btn:hover, .review-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .correct { background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%) !important; border-color: #388E3C !important; }
+        .wrong { background: linear-gradient(135deg, #E57373 0%, #EF5350 100%) !important; border-color: #D32F2F !important; }
+        .time-bonus { animation: pulse 0.5s ease; color: #388E3C; }
+        .time-penalty { animation: shake 0.5s ease; color: #D32F2F; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        .start-menu, .mode-menu { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 600px; text-align: center; }
+        .mode-menu { display: none; }
         .record-display {
             background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
             border: 3px solid #FF8F00;
             border-radius: 20px;
             padding: 15px 30px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(255, 160, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(255,160,0,0.3);
             animation: glow 2s ease-in-out infinite alternate;
         }
-
         @keyframes glow {
-            from { box-shadow: 0 4px 15px rgba(255, 160, 0, 0.3); }
-            to { box-shadow: 0 6px 25px rgba(255, 160, 0, 0.5); }
+            from { box-shadow: 0 4px 15px rgba(255,160,0,0.3); }
+            to { box-shadow: 0 6px 25px rgba(255,160,0,0.5); }
         }
-
-        .record-label {
-            font-size: 14px;
-            color: #E65100;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .record-score {
-            font-size: 32px;
-            font-weight: bold;
-            color: #BF360C;
-            margin-top: 5px;
-        }
-
-        .start-title {
-            font-size: 32px;
-            font-weight: bold;
-            color: #0288D1;
-            margin-bottom: 10px;
-        }
-
-        .start-subtitle {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 40px;
-        }
-
-        .mode-options {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%;
-            max-width: 320px;
-        }
-
+        .record-label { font-size: 14px; color: #E65100; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .record-score { font-size: 32px; font-weight: bold; color: #BF360C; margin-top: 5px; }
+        .start-title { font-size: 32px; font-weight: bold; color: #0288D1; margin-bottom: 10px; }
+        .start-subtitle { font-size: 18px; color: #666; margin-bottom: 40px; }
+        .mode-options { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 320px; }
         .mode-btn {
             background: white;
             border: 3px solid;
@@ -342,61 +204,16 @@
             align-items: center;
             gap: 10px;
         }
-
-        .mode-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .mode-btn.easy {
-            border-color: #81C784;
-            color: #388E3C;
-        }
-
-        .mode-btn.easy:hover {
-            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
-            color: white;
-        }
-
-        .mode-btn.hard {
-            border-color: #EF5350;
-            color: #C62828;
-        }
-
-        .mode-btn.hard:hover {
-            background: linear-gradient(135deg, #EF5350 0%, #E53935 100%);
-            color: white;
-        }
-
-        .mode-btn.selected {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-
-        .mode-btn.easy.selected {
-            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
-            color: white;
-        }
-
-        .mode-btn.hard.selected {
-            background: linear-gradient(135deg, #EF5350 0%, #E53935 100%);
-            color: white;
-        }
-
-        .mode-desc {
-            font-size: 13px;
-            font-weight: normal;
-            opacity: 0.9;
-        }
-
-        .time-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            max-width: 300px;
-        }
-
+        .mode-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .mode-btn.easy { border-color: #81C784; color: #388E3C; }
+        .mode-btn.easy:hover, .mode-btn.easy.selected { background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%); color: white; }
+        .mode-btn.hard { border-color: #EF5350; color: #C62828; }
+        .mode-btn.hard:hover, .mode-btn.hard.selected { background: linear-gradient(135deg, #EF5350 0%, #E53935 100%); color: white; }
+        .mode-btn.ki { border-color: #9575CD; color: #512DA8; }
+        .mode-btn.ki:hover, .mode-btn.ki.selected { background: linear-gradient(135deg, #9575CD 0%, #7E57C2 100%); color: white; }
+        .mode-btn.selected { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .mode-desc { font-size: 13px; font-weight: normal; opacity: 0.9; }
+        .time-options { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 300px; }
         .time-btn {
             background: white;
             border: 3px solid #0288D1;
@@ -412,19 +229,7 @@
             justify-content: center;
             gap: 10px;
         }
-
-        .time-btn:hover {
-            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(79, 195, 247, 0.4);
-        }
-
-        .time-btn.selected {
-            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
-            color: white;
-        }
-
+        .time-btn:hover, .time-btn.selected { background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); color: white; transform: scale(1.05); box-shadow: 0 8px 25px rgba(79,195,247,0.4); }
         .start-btn, .next-btn, .back-btn {
             border: none;
             border-radius: 25px;
@@ -436,384 +241,152 @@
             transition: all 0.3s ease;
             margin-top: 30px;
         }
-
-        .start-btn {
-            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
-            box-shadow: 0 4px 15px rgba(129, 199, 132, 0.4);
-        }
-
-        .next-btn {
-            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
-            box-shadow: 0 4px 15px rgba(79, 195, 247, 0.4);
-        }
-
-        .back-btn {
-            background: #BDBDBD;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            font-size: 16px;
-            padding: 12px 30px;
-            margin-top: 15px;
-        }
-
-        .start-btn:hover, .next-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-
-        .back-btn:hover {
-            background: #9E9E9E;
-            transform: scale(1.05);
-        }
-
-        .start-btn:disabled, .next-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .game-content {
-            display: none;
-        }
-
-        .emoji-icon {
-            font-size: 24px;
-        }
-
-        .new-record {
-            animation: celebrate 1s ease;
-            color: #FFD700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-        }
-
-        @keyframes celebrate {
-            0%, 100% { transform: scale(1); }
-            25% { transform: scale(1.2) rotate(-5deg); }
-            50% { transform: scale(1.3) rotate(5deg); }
-            75% { transform: scale(1.2) rotate(-5deg); }
-        }
-
-        /* Review Screen Styles */
+        .start-btn { background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%); box-shadow: 0 4px 15px rgba(129,199,132,0.4); }
+        .next-btn { background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); box-shadow: 0 4px 15px rgba(79,195,247,0.4); }
+        .back-btn { background: #BDBDBD; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-size: 16px; padding: 12px 30px; margin-top: 15px; }
+        .start-btn:hover, .next-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .back-btn:hover { background: #9E9E9E; transform: scale(1.05); }
+        .start-btn:disabled, .next-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+        .game-content { display: none; }
+        .emoji-icon { font-size: 24px; }
+        .new-record { animation: celebrate 1s ease; color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.8); }
+        @keyframes celebrate { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.2) rotate(-5deg); } 50% { transform: scale(1.3) rotate(5deg); } 75% { transform: scale(1.2) rotate(-5deg); } }
         .review-screen {
             display: none;
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.98);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255,255,255,0.98);
             z-index: 100;
             padding: 20px;
             overflow-y: auto;
         }
-
-        .review-header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #E0E0E0;
-        }
-
-        .review-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #D32F2F;
-            margin-bottom: 5px;
-        }
-
-        .review-subtitle {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .mistake-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 80px;
-        }
-
-        .mistake-item {
-            background: white;
-            border: 2px solid #E0E0E0;
-            border-radius: 15px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .mistake-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            flex-wrap: wrap;
-        }
-
-        .wrong-answer {
-            color: #D32F2F;
-            text-decoration: line-through;
-            font-weight: bold;
-        }
-
-        .correct-answer {
-            color: #388E3C;
-            font-weight: bold;
-            background: #E8F5E9;
-            padding: 5px 10px;
-            border-radius: 10px;
-            border: 2px solid #81C784;
-        }
-
-        .arrow-icon {
-            color: #999;
-            font-size: 20px;
-        }
-
-        .mistake-number {
-            background: #FFCDD2;
-            color: #D32F2F;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-
-        /* Hard mode review specific styles */
-        .hard-mode-review .mistake-item {
-            border-color: #FFCDD2;
-            background: linear-gradient(to bottom, #FFF5F5 0%, #ffffff 100%);
-        }
-
-        .all-wrong-options {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed #E0E0E0;
-        }
-
-        .wrong-option-label {
-            font-size: 12px;
-            color: #666;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .wrong-options-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .wrong-option-tag {
-            background: #FFEBEE;
-            color: #C62828;
-            padding: 5px 10px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: bold;
-            border: 1px solid #EF9A9A;
-        }
-
-        .selected-wrong {
-            background: #EF5350 !important;
-            color: white !important;
-            border-color: #C62828 !important;
-            animation: shake 0.5s ease;
-        }
-
-        .review-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: white;
-            padding: 15px 20px;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .close-review-btn {
-            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
-            border: none;
-            border-radius: 20px;
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .close-review-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .no-mistakes {
-            text-align: center;
-            padding: 60px 20px;
-            color: #388E3C;
-        }
-
-        .no-mistakes-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .no-mistakes-text {
-            font-size: 20px;
-            font-weight: bold;
-        }
+        .review-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #E0E0E0; }
+        .review-title { font-size: 24px; font-weight: bold; color: #D32F2F; margin-bottom: 5px; }
+        .review-subtitle { font-size: 14px; color: #666; }
+        .mistake-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 80px; }
+        .mistake-item { background: white; border: 2px solid #E0E0E0; border-radius: 15px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .mistake-row { display: flex; align-items: center; gap: 10px; font-size: 16px; flex-wrap: wrap; }
+        .wrong-answer { color: #D32F2F; text-decoration: line-through; font-weight: bold; }
+        .correct-answer { color: #388E3C; font-weight: bold; background: #E8F5E9; padding: 5px 10px; border-radius: 10px; border: 2px solid #81C784; }
+        .arrow-icon { color: #999; font-size: 20px; }
+        .mistake-number { background: #FFCDD2; color: #D32F2F; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; flex-shrink: 0; }
+        .hard-mode-review .mistake-item { border-color: #FFCDD2; background: linear-gradient(to bottom, #FFF5F5 0%, #ffffff 100%); }
+        .all-wrong-options { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E0E0E0; }
+        .wrong-option-label { font-size: 12px; color: #666; font-weight: bold; margin-bottom: 5px; }
+        .wrong-options-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .wrong-option-tag { background: #FFEBEE; color: #C62828; padding: 5px 10px; border-radius: 12px; font-size: 14px; font-weight: bold; border: 1px solid #EF9A9A; }
+        .selected-wrong { background: #EF5350 !important; color: white !important; border-color: #C62828 !important; animation: shake 0.5s ease; }
+        .review-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: white; padding: 15px 20px; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); display: flex; justify-content: center; gap: 10px; }
+        .close-review-btn { background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); border: none; border-radius: 20px; padding: 12px 30px; font-size: 16px; font-weight: bold; color: white; cursor: pointer; transition: all 0.3s ease; }
+        .close-review-btn:hover { transform: scale(1.05); }
+        .no-mistakes { text-align: center; padding: 60px 20px; color: #388E3C; }
+        .no-mistakes-icon { font-size: 60px; margin-bottom: 20px; }
+        .no-mistakes-text { font-size: 20px; font-weight: bold; }
+        /* Ki review styles */
+        .ki-review-item { border-color: #D1C4E9 !important; background: linear-gradient(to bottom, #F3E5F5 0%, #ffffff 100%) !important; }
+        .ki-explanation { font-size: 13px; color: #555; margin-top: 8px; padding: 8px 10px; background: #F5F5F5; border-radius: 8px; border-left: 3px solid #9575CD; }
     </style>
 </head>
 <body>
-    <div class="game-container">
-        <!-- Start Menu -->
-        <div class="start-menu" id="start-menu">
-            <div class="record-display" id="record-display">
-                <div class="record-label">🏆 REKOR</div>
-                <div class="record-score" id="record-score">0 PTS</div>
-            </div>
-            
-            <div class="start-title">🎯 YKS Flow</div>
-            <div class="start-subtitle">Kelime Testi</div>
-            
-            <button class="start-btn" onclick="showModeMenu()">
-                Oyuna Başla 🚀
+<div class="game-container">
+
+    <!-- Start Menu -->
+    <div class="start-menu" id="start-menu">
+        <div class="record-display" id="record-display">
+            <div class="record-label">🏆 REKOR</div>
+            <div class="record-score" id="record-score">0 PTS</div>
+        </div>
+        <div class="start-title">🎯 YKS Flow</div>
+        <div class="start-subtitle">Kelime Testi</div>
+        <button class="start-btn" onclick="showModeMenu()">Oyuna Başla 🚀</button>
+    </div>
+
+    <!-- Mode Selection Menu -->
+    <div class="mode-menu" id="mode-menu">
+        <div class="start-title">🎮 Mod Seç</div>
+        <div class="start-subtitle">Zorluk seviyesini seç</div>
+        <div class="mode-options">
+            <button class="mode-btn easy" onclick="selectMode('easy', this)">
+                <span class="emoji-icon">😊</span>
+                <span>Kolay Mod</span>
+                <span class="mode-desc">2 seçenek (1 doğru, 1 yanlış)</span>
+            </button>
+            <button class="mode-btn hard" onclick="selectMode('hard', this)">
+                <span class="emoji-icon">🔥</span>
+                <span>Zor Mod</span>
+                <span class="mode-desc">4 seçenek (1 doğru, 3 yanlış)</span>
+            </button>
+            <button class="mode-btn ki" onclick="selectMode('ki', this)">
+                <span class="emoji-icon">🔍</span>
+                <span>Ki Dedektifi</span>
+                <span class="mode-desc">Cümledeki "ki" doğru mu?</span>
             </button>
         </div>
+        <button class="next-btn" id="next-btn" onclick="showTimeMenu()" disabled>İleri →</button>
+        <button class="back-btn" onclick="backToStart()">← Geri</button>
+    </div>
 
-        <!-- Mode Selection Menu -->
-        <div class="mode-menu" id="mode-menu">
-            <div class="start-title">🎮 Mod Seç</div>
-            <div class="start-subtitle">Zorluk seviyesini seç</div>
-            
-            <div class="mode-options">
-                <button class="mode-btn easy" onclick="selectMode('easy', this)">
-                    <span class="emoji-icon">😊</span>
-                    <span>Kolay Mod</span>
-                    <span class="mode-desc">2 seçenek (1 doğru, 1 yanlış)</span>
-                </button>
-                <button class="mode-btn hard" onclick="selectMode('hard', this)">
-                    <span class="emoji-icon">🔥</span>
-                    <span>Zor Mod</span>
-                    <span class="mode-desc">4 seçenek (1 doğru, 3 yanlış)</span>
-                </button>
-            </div>
-            
-            <button class="next-btn" id="next-btn" onclick="showTimeMenu()" disabled>
-                İleri →
-            </button>
-            <button class="back-btn" onclick="backToStart()">
-                ← Geri
-            </button>
+    <!-- Time Selection Menu -->
+    <div class="mode-menu" id="time-menu" style="display:none;">
+        <div class="start-title">⏱️ Süre Seç</div>
+        <div class="start-subtitle">Oyun süresini belirle</div>
+        <div class="time-options">
+            <button class="time-btn" onclick="selectTime(30, this)"><span class="emoji-icon">⚡</span><span>30 Saniye</span></button>
+            <button class="time-btn" onclick="selectTime(60, this)"><span class="emoji-icon">⏱️</span><span>1 Dakika</span></button>
+            <button class="time-btn" onclick="selectTime(120, this)"><span class="emoji-icon">🕐</span><span>2 Dakika</span></button>
         </div>
+        <button class="start-btn" id="start-btn" onclick="startGame()" disabled>Başla! 🚀</button>
+        <button class="back-btn" onclick="backToMode()">← Geri</button>
+    </div>
 
-        <!-- Time Selection Menu -->
-        <div class="mode-menu" id="time-menu" style="display: none;">
-            <div class="start-title">⏱️ Süre Seç</div>
-            <div class="start-subtitle">Oyun süresini belirle</div>
-            
-            <div class="time-options">
-                <button class="time-btn" onclick="selectTime(30, this)">
-                    <span class="emoji-icon">⚡</span>
-                    <span>30 Saniye</span>
-                </button>
-                <button class="time-btn" onclick="selectTime(60, this)">
-                    <span class="emoji-icon">⏱️</span>
-                    <span>1 Dakika</span>
-                </button>
-                <button class="time-btn" onclick="selectTime(120, this)">
-                    <span class="emoji-icon">🕐</span>
-                    <span>2 Dakika</span>
-                </button>
-            </div>
-            
-            <button class="start-btn" id="start-btn" onclick="startGame()" disabled>
-                Başla! 🚀
-            </button>
-            <button class="back-btn" onclick="backToMode()">
-                ← Geri
-            </button>
+    <!-- Game Content -->
+    <div class="game-content" id="game-content">
+        <div class="header">
+            <div class="timer-box"><div class="timer" id="timer">60s</div></div>
+            <div class="score-box"><div class="score" id="score">0 PTS</div></div>
+            <div class="combo-box"><div class="combo" id="combo">🔥 0</div></div>
         </div>
-
-        <!-- Game Content -->
-        <div class="game-content" id="game-content">
-            <div class="header">
-                <div class="timer-box">
-                    <div class="timer" id="timer">60s</div>
-                </div>
-                <div class="score-box">
-                    <div class="score" id="score">0 PTS</div>
-                </div>
-                <div class="combo-box">
-                    <div class="combo" id="combo">🔥 0</div>
-                </div>
-            </div>
-
-            <div style="text-align: center;">
-                <div class="mode-indicator" id="mode-indicator">Kolay Mod</div>
-            </div>
-
-            <div class="question-area" id="question-area">
-                <div class="question-label">Doğru yazımı seç:</div>
-                <div id="cards-container">
-                    <!-- Cards will be generated here -->
-                </div>
-            </div>
-
-            <div class="garden" id="garden">
-                <div class="garden-label">🪴</div>
-                <div class="garden-text" id="garden-text"></div>
-            </div>
+        <div style="text-align:center;">
+            <div class="mode-indicator" id="mode-indicator">Kolay Mod</div>
         </div>
-
-        <!-- Game Over Screen -->
-        <div class="game-over" id="game-over">
-            <h2>BİTTİ!</h2>
-            <div class="final-score" id="final-score">0 PTS</div>
-            <div class="max-combo" id="max-combo-display">🔥 En Yüksek Combo: 0</div>
-            <div class="game-over-buttons">
-                <button class="review-btn" onclick="showReview()">
-                    📋 Hataları Gözden Geçir
-                </button>
-                <button class="restart-btn" onclick="restartGame()">
-                    Tekrar Oyna
-                </button>
-            </div>
+        <div class="question-area" id="question-area">
+            <div class="question-label" id="question-label">Doğru yazımı seç:</div>
+            <div id="cards-container"></div>
         </div>
-
-        <!-- Review Screen -->
-        <div class="review-screen" id="review-screen">
-            <div class="review-header">
-                <div class="review-title">📋 Hata Analizi</div>
-                <div class="review-subtitle">Yanlış cevapladığın kelimeler</div>
-            </div>
-            
-            <div class="mistake-list" id="mistake-list">
-                <!-- Mistakes will be inserted here -->
-            </div>
-            
-            <div class="review-footer">
-                <button class="close-review-btn" onclick="closeReview()">
-                    ✓ Anladım, Geri Dön
-                </button>
-            </div>
+        <div class="garden" id="garden">
+            <div class="garden-label">🪴</div>
+            <div class="garden-text" id="garden-text"></div>
         </div>
     </div>
 
-    <script>
-        const masterList = [
+    <!-- Game Over Screen -->
+    <div class="game-over" id="game-over">
+        <h2>BİTTİ!</h2>
+        <div class="final-score" id="final-score">0 PTS</div>
+        <div class="max-combo" id="max-combo-display">🔥 En Yüksek Combo: 0</div>
+        <div class="game-over-buttons">
+            <button class="review-btn" onclick="showReview()">📋 Hataları Gözden Geçir</button>
+            <button class="restart-btn" onclick="restartGame()">Tekrar Oyna</button>
+        </div>
+    </div>
+
+    <!-- Review Screen -->
+    <div class="review-screen" id="review-screen">
+        <div class="review-header">
+            <div class="review-title">📋 Hata Analizi</div>
+            <div class="review-subtitle">Yanlış cevapladığın sorular</div>
+        </div>
+        <div class="mistake-list" id="mistake-list"></div>
+        <div class="review-footer">
+            <button class="close-review-btn" onclick="closeReview()">✓ Anladım, Geri Dön</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ===================== KELIME LİSTESİ =====================
+const masterList = [
 {"d":"ön söz","y":"önsöz"},
 {"d":"öngörü","y":"ön görü"},
 {"d":"ön yargı","y":"önyargı"},
@@ -856,16 +429,6 @@
 {"d":"yasa dışı","y":"yasadışı"},
 {"d":"hafta içi","y":"haftaiçi"},
 {"d":"yurt içi","y":"yurtiçi"},
-{"d":"yeşil biber","y":"yeşilbiber"},
-{"d":"yeşil çay","y":"yeşilçay"},
-{"d":"kırmızıbiber","y":"kırmızı biber"},
-{"d":"karabiber","y":"kara biber"},
-{"d":"kuru soğan","y":"kurusoğan"},
-{"d":"kuru fasulye","y":"kurufasulye"},
-{"d":"çiğ börek","y":"çi börek"},
-{"d":"alinazik","y":"ali nazik"},
-{"d":"dereotu","y":"dere otu"},
-{"d":"semizotu","y":"semiz otu"},
 {"d":"zeytinyağı","y":"zeytin yağı"},
 {"d":"tereyağı","y":"tere yağı"},
 {"d":"orijinal","y":"orjinal"},
@@ -880,8 +443,6 @@
 {"d":"sömestir","y":"sömestr"},
 {"d":"milletlerarası","y":"milletler arası"},
 {"d":"uluslararası","y":"uluslar arası"},
-{"d":"Marmaraereğlisi","y":"Marmara Ereğlisi"},
-{"d":"Doğubayazıt","y":"Doğu Bayazıt"},
 {"d":"birçok","y":"bir çok"},
 {"d":"birkaç","y":"bir kaç"},
 {"d":"her şey","y":"herşey"},
@@ -890,10 +451,6 @@
 {"d":"herhangi bir","y":"herhangibir"},
 {"d":"vatansever","y":"vatan sever"},
 {"d":"hayvansever","y":"hayvan sever"},
-{"d":"başüstüne","y":"baş üstüne"},
-{"d":"terk etmek","y":"terketmek"},
-{"d":"ayırt etmek","y":"ayırdetmek"},
-{"d":"fark etmek","y":"farkatmek"},
 {"d":"değil mi","y":"değilmi"},
 {"d":"bir şey","y":"birşey"},
 {"d":"hiç kimse","y":"hiçkimse"},
@@ -901,21 +458,10 @@
 {"d":"herhangi","y":"her hangi"},
 {"d":"herhalde","y":"her halde"},
 {"d":"o kadar","y":"okadar"},
-{"d":"az da","y":"azda"},
-{"d":"çok da","y":"çokda"},
-{"d":"sen de","y":"sende"},
-{"d":"ben de","y":"bende"},
-{"d":"o da","y":"oda"},
 {"d":"iyi ki","y":"iyiki"},
 {"d":"demek ki","y":"demekki"},
 {"d":"madem ki","y":"mademki"},
 {"d":"oysaki","y":"oysa ki"},
-{"d":"hiç değilse","y":"hiçdeğilse"},
-{"d":"en az","y":"enaz"},
-{"d":"en çok","y":"ençok"},
-{"d":"bir türlü","y":"birtürlü"},
-{"d":"bir hayli","y":"birhayli"},
-{"d":"pekâlâ","y":"pek ala"},
 {"d":"ola ki","y":"olaki"},
 {"d":"neyse ki","y":"neyseki"},
 {"d":"öyle ki","y":"öyleki"},
@@ -927,63 +473,26 @@
 {"d":"yan yana","y":"yanyana"},
 {"d":"iç içe","y":"içiçe"},
 {"d":"yüz yüze","y":"yüzyüze"},
-{"d":"yanı başında","y":"yanıbaşında"},
 {"d":"hemen hemen","y":"hemenhemen"},
-{"d":"yer yer","y":"yeryer"},
-{"d":"zaman zaman","y":"zamanzaman"},
-{"d":"git gide","y":"gitgide"},
-{"d":"günden güne","y":"gündengüne"},
-{"d":"elden ele","y":"eldenele"},
 {"d":"az çok","y":"azçok"},
-{"d":"gece gündüz","y":"gecegündüz"},
-{"d":"güç bela","y":"güçbela"},
-{"d":"derme çatma","y":"dermeçatma"},
 {"d":"bile bile","y":"bilebile"},
 {"d":"her biri","y":"herbiri"},
 {"d":"hiçbiri","y":"hiç biri"},
-{"d":"bir kısmı","y":"birkısmı"},
-{"d":"çoğu zaman","y":"çoğuzaman"},
-{"d":"orta halli","y":"ortahalli"},
-{"d":"ileri görüşlü","y":"ilerigörüşlü"},
-{"d":"üstünkörü","y":"üstün körü"},
-{"d":"olur olmaz","y":"olurolmaz"},
-{"d":"yarı yarıya","y":"yarıyarıya"},
-{"d":"toptan satış","y":"toptansatış"},
-{"d":"perakende satış","y":"perakendesatış"},
-{"d":"açık açık","y":"açıkaçık"},
-{"d":"kapalı kapılar ardında","y":"kapalıkapılarardında"},
-{"d":"her nasılsa","y":"hernasılsa"},
-{"d":"birden","y":"bir den"},
-{"d":"birdenbire","y":"bir den bire"},
-{"d":"gitgide","y":"git gide"},
-{"d":"gelişigüzel","y":"gelişi güzel"},
-{"d":"suspus","y":"sus pus"},
-{"d":"apayrı","y":"ap ayrı"},
-{"d":"ardarda","y":"artar da"},
-{"d":"art arda","y":"ardarda"},
 {"d":"iş birliği","y":"işbirliği"},
 {"d":"güç birliği","y":"güçbirliği"},
 {"d":"oy birliği","y":"oybirliği"},
 {"d":"el birliği","y":"elbirliği"},
-{"d":"vazgeçmek","y":"vaz geçmek"},
-{"d":"kaybolmak","y":"kayıp olmak"},
-{"d":"öngörmek","y":"ön görmek"},
 {"d":"reddetmek","y":"red etmek"},
 {"d":"affetmek","y":"af etmek"},
 {"d":"hissetmek","y":"his etmek"},
-{"d":"kaydetmek","y":"kayıt etmek"},
 {"d":"cankurtaran","y":"can kurtaran"},
 {"d":"devekuşu","y":"deve kuşu"},
 {"d":"hamamböceği","y":"hamam böceği"},
 {"d":"uğurböceği","y":"uğur böceği"},
 {"d":"sivrisinek","y":"sivri sinek"},
-{"d":"ateşböceği","y":"ateş böceği"},
-{"d":"karadut","y":"kara dut"},
-{"d":"kuşburnu","y":"kuş burnu"},
 {"d":"buzdolabı","y":"buz dolabı"},
 {"d":"ipucu","y":"ip ucu"},
 {"d":"işyeri","y":"iş yeri"},
-{"d":"işbaşı","y":"iş başı"},
 {"d":"başsağlığı","y":"baş sağlığı"},
 {"d":"havaalanı","y":"hava alanı"},
 {"d":"karayolu","y":"kara yolu"},
@@ -991,542 +500,519 @@
 {"d":"havayolu","y":"hava yolu"},
 {"d":"anaokulu","y":"ana okulu"},
 {"d":"anayasa","y":"ana yasa"},
-{"d":"anapara","y":"ana para"},
-{"d":"yüksekokul","y":"yüksek okul"},
-{"d":"ortaokul","y":"orta okul"},
 {"d":"yükseköğretim","y":"yüksek öğretim"},
 {"d":"açıköğretim","y":"açık öğretim"},
 {"d":"yılbaşı","y":"yıl başı"},
-{"d":"köşebaşı","y":"köşe başı"},
-{"d":"masabaşı","y":"masa başı"},
-{"d":"elebaşı","y":"el başı"},
-{"d":"aklı sıra","y":"aklısıra"},
-{"d":"ara sıra","y":"arasıra"},
-{"d":"ardı sıra","y":"ardısıra"},
-{"d":"sıradağ","y":"sıra dağ"},
-{"d":"olağan dışı","y":"olağandışı"},
-{"d":"gözaltı","y":"göz altı"},
-{"d":"göz önünde","y":"gözönünde"},
-{"d":"el altı","y":"elaltı"},
-{"d":"el üstünde","y":"elüstünde"},
-{"d":"baş tacı","y":"baştacı"},
-{"d":"can simidi","y":"cansimidi"},
 {"d":"bugün","y":"bu gün"},
-{"d":"öbür gün","y":"öbürgün"},
 {"d":"şimdiki","y":"şimdi ki"},
 {"d":"buradaki","y":"burada ki"},
 {"d":"oradaki","y":"orada ki"},
-{"d":"itibarıyla","y":"itibariyle"},
-{"d":"itibaren","y":"itibaren"},
 {"d":"muhatap","y":"muhattap"},
-{"d":"muhataplık","y":"muhattaplık"},
-{"d":"müteahhit","y":"müteahit"},
-{"d":"müteahhitlik","y":"müteahitlik"},
 {"d":"mütevazı","y":"mütevazi"},
-{"d":"mütevazılık","y":"mütevazilik"},
 {"d":"müthiş","y":"mütiş"},
 {"d":"maalesef","y":"maleesef"},
-{"d":"mağlup","y":"malup"},
-{"d":"mahcup","y":"mahçup"},
-{"d":"mecburi","y":"mecburi"},
-{"d":"mevduat","y":"mevduat"},
 {"d":"metot","y":"metod"},
-{"d":"nispet","y":"nisbet"},
-{"d":"perspektif","y":"perpektif"},
-{"d":"platform","y":"platforum"},
-{"d":"prensip","y":"pirensip"},
-{"d":"profesör","y":"profüsör"},
-{"d":"propaganda","y":"probaganda"},
-{"d":"psikoloji","y":"pisikoloji"},
 {"d":"rastgele","y":"rasgele"},
-{"d":"referans","y":"reverans"},
-{"d":"repertuvar","y":"repertuar"},
 {"d":"röportaj","y":"röpörtaj"},
-{"d":"ruhsat","y":"ruhsaat"},
-{"d":"sabretmek","y":"sabır etmek"},
-{"d":"saçmalamak","y":"saçmala mak"},
-{"d":"sarf etmek","y":"sarfetmek"},
-{"d":"serbest","y":"serbes"},
-{"d":"sermaye","y":"serme ye"},
-{"d":"sevk etmek","y":"sevketmek"},
-{"d":"şoför","y":"şöför"},
-{"d":"şuursuz","y":"şursuz"},
 {"d":"sürpriz","y":"süpriz"},
 {"d":"tahmin","y":"tamin"},
-{"d":"taksit","y":"taksid"},
-{"d":"tasdik","y":"tasdık"},
-{"d":"tasfiye","y":"tasfiye"},
-{"d":"tefekkür","y":"tefekür"},
-{"d":"teşhis","y":"teşis"},
-{"d":"tecrübeli","y":"tecrubeli"},
-{"d":"tedbir","y":"tedbir"},
-{"d":"temayül","y":"temayul"},
-{"d":"temkinli","y":"temkinli"},
-{"d":"tenkit","y":"tenkid"},
 {"d":"tereddüt","y":"teredüt"},
-{"d":"tevazu","y":"tevazü"},
-{"d":"tevdi etmek","y":"tevdi etmek"},
-{"d":"topyekûn","y":"topyekun"},
-{"d":"trajedi","y":"traji"},
-{"d":"tutumlu","y":"tutumlu"},
-{"d":"usul","y":"usül"},
-{"d":"vakıf","y":"vakıf"},
-{"d":"vasıf","y":"vasıf"},
-{"d":"vekil","y":"veğil"},
-{"d":"velhasıl","y":"velasıl"},
-{"d":"vicdan","y":"vijdan"},
-{"d":"yadsımak","y":"yatsımak"},
 {"d":"yanlış","y":"yalnış"},
 {"d":"yalnız","y":"yanlız"},
-{"d":"yapboz","y":"yap boz"},
-{"d":"yayımlamak","y":"yayınlamak"},
-{"d":"yürürlük","y":"yürürlülük"},
-{"d":"zarf","y":"zarf"},
-{"d":"zira","y":"zire"},
-{"d":"hükûmet","y":"hükümet"},
-{"d":"millî","y":"milli"},
-{"d":"resmî","y":"resmi"},
-{"d":"dinî","y":"dini"},
-{"d":"sıhhi","y":"sıhı"},
-{"d":"zihniyet","y":"ziniyet"},
-{"d":"itimat","y":"itimad"},
-{"d":"ittifak","y":"itfak"},
-{"d":"iddia","y":"iddaa"},
-{"d":"iddialı","y":"iddalı"},
-{"d":"inkılap","y":"inkilap"},
-{"d":"istirahat","y":"istirahat"},
-{"d":"istikrar","y":"istirar"},
-{"d":"istisna","y":"istina"},
-{"d":"ithal","y":"ithaal"},
-{"d":"itibar","y":"itibaar"},
-{"d":"kapsamlı","y":"kapsamli"},
-{"d":"kaynakça","y":"kaynakca"},
-{"d":"kesinlikle","y":"kesinlik le"},
-{"d":"komisyon","y":"komısyon"},
-{"d":"konsantrasyon","y":"konsantras yon"},
-{"d":"koordinasyon","y":"kordinasyon"},
-{"d":"kuruluş","y":"kuruluş"},
-{"d":"mademki","y":"madem ki"},
-{"d":"maliyet","y":"maliy et"},
-{"d":"manevi","y":"manevî"},
-{"d":"maneviyat","y":"maneviyat"},
-{"d":"matematik","y":"matamatik"},
-{"d":"meslektaş","y":"meslekdaş"},
-{"d":"miktar","y":"miqtar"},
-{"d":"mizaç","y":"mizac"},
-{"d":"modern","y":"moderen"},
-{"d":"muazzam","y":"muazam"},
 {"d":"mükemmel","y":"mükkemmel"},
-{"d":"münferit","y":"müferit"},
-{"d":"mürekkep","y":"mürekep"}
-
+{"d":"perspektif","y":"perpektif"},
+{"d":"psikoloji","y":"pisikoloji"},
+{"d":"koordinasyon","y":"kordinasyon"},
+{"d":"mademki","y":"madem ki"},
+{"d":"matematik","y":"matamatik"},
+{"d":"meslektaş","y":"meslekdaş"}
 ];
 
-        const flowers = ["🌸", "🌼", "🌷", "🌻", "🌹", "🌺","🪻","🪷","🌿"];
-
-        let pool = [];
-        let score = 0;
-        let combo = 0;
-        let maxCombo = 0;
-        let time = 60;
-        let selectedTime = 0;
-        let gameMode = '';
-        let gardenStr = "";
-        let correctIdx = 0;
-        let timerInterval = null;
-        let gameActive = true;
-        let currentQ = null;
-        let highScore = 0;
-        let wrongAnswers = [];
-        let hardModeOptions = [];
-
-        function loadHighScore() {
-            const saved = localStorage.getItem('yksFlowHighScore');
-            if (saved) {
-                highScore = parseInt(saved, 10);
-            }
-            updateRecordDisplay();
+// ===================== Kİ DEDEKTİFİ VERİ TABANI =====================
+const kiDatabase = {
+    jokerGiris: [
+        "Aslında", "Görünüşe göre", "Maalesef", "Bence", "Anlaşılan",
+        "Dikkatli bakarsan", "Belki de", "Genellikle", "Kim bilir",
+        "Ne yazık ki", "Aslına bakarsan", "İşin garip tarafı şu ki",
+        "Yapılan gözlemler gösteriyor ki", "Korkarım ki", "Şans eseri",
+        "Herkes biliyor ki", "Öyle sanıyorum ki", "Merak etme"
+    ],
+    jokerBitis: [
+        "durumu biraz değiştiriyor.", "herkesi şaşırttı.", "hiç de beklediğim gibi değil.",
+        "meselesi henüz çözülmedi.", "gerçekten çok ilginç.", "bugünlerde çok konuşuluyor.",
+        "insanı hayretler içinde bırakıyor.", "tüm mahallenin diline düşmüş.",
+        "zihnimi meşgul etmeye devam ediyor.", "kimse ne yapacağını bilmiyor."
+    ],
+    turler: {
+        sifat: {
+            d1: ["masada", "yarın", "sokakta", "mutfakta", "duvarda", "gece", "karşıda",
+                 "sınıfta", "şehirde", "gökyüzünde", "fabrikada", "gemide", "ormanda",
+                 "köşede", "çantada", "resimdeki", "kitapta", "müzede", "dağda", "denizde",
+                 "sabah", "akşam", "önceki gün", "yukarıda", "aşağıda"],
+            d2: ["bardak", "sınav", "gürültü", "yemek", "tablo", "ışıklar", "bina",
+                 "öğrenciler", "ağaçlar", "kuşlar", "makine", "kaptan", "fırtına",
+                 "anahtar", "ses", "gölge", "fikir", "gizem", "sessizlik", "plan"],
+            yazim: "bitisik",
+            aciklama: "Bu bir sıfat yapan \"-ki\"dir. Yer/zaman bildiren kelimeye bitişik yazılır.",
+            tip: "sifat"
+        },
+        zamir: {
+            d1: ["benim", "senin", "onun", "bizim", "sizin", "onların", "Ali'nin",
+                 "kardeşimin", "öğretmenin", "köpeğin", "Ayşe'nin", "komşunun",
+                 "müdürün", "kedinin", "arabanın", "çocuğun", "doktorun", "saatin"],
+            d2: ["kırılmış", "bozulmuş", "gelmedi", "kayıp", "bitmiş", "çalışıyor",
+                 "çok eski", "daha hızlı", "temizmiş", "yolda kalmış", "arızalanmış",
+                 "çalınmış", "nerede", "kaybolmuş", "eskimiş"],
+            yazim: "bitisik",
+            aciklama: "Bu bir ilgi zamiridir. Sahiplik ekinden (-ın/-im) sonra gelir, bitişik yazılır.",
+            tip: "zamir"
+        },
+        baglac: {
+            d1: ["anladım", "gördüm", "çalış", "duydum", "öyle", "inan", "sustu",
+                 "söyle", "bil", "bir baktım", "korktum", "farz et", "hissettim",
+                 "düşündüm", "fark ettim", "umdum", "hayal et", "şüphelen"],
+            d2: ["olmayacak", "herkes gitmiş", "kazanasın", "unutmuşsun",
+                 "vakit çok geç", "her şey bitti", "kimse yok", "yanılmışız",
+                 "zaman durdu", "ışıklar söndü", "sırlar açığa çıktı", "kapı kilitliydi"],
+            yazim: "ayri",
+            aciklama: "Bu bir bağlaçtır. Fiilden sonra gelir ve her zaman ayrı yazılır.",
+            tip: "baglac"
+        },
+        kalip: {
+            d1: ["madem", "oysa", "halbu", "sanki", "meğer", "belki", "illa"],
+            d2: ["her şeyi biliyor", "işler değişti", "gelmedin", "haberim yoktu",
+                 "çok geçti", "gerçek buymuş", "başardık", "kaçınılmazdı",
+                 "kimse duymamış", "hep böyleydi"],
+            yazim: "bitisik",
+            aciklama: "Bu kalıplaşmış bir ifadedir (SOMBAHÇEM grubu). Bağlaç olmasına rağmen her zaman bitişik yazılır.",
+            tip: "kalip"
         }
+    }
+};
 
-        function saveHighScore(newScore) {
-            if (newScore > highScore) {
-                highScore = newScore;
-                localStorage.setItem('yksFlowHighScore', highScore);
-                return true;
-            }
-            return false;
+const tipRenk = {
+    sifat: "badge-sifat",
+    zamir: "badge-zamir",
+    baglac: "badge-baglac",
+    kalip: "badge-kalip"
+};
+
+const tipAd = {
+    sifat: "Sıfat yapan -ki",
+    zamir: "İlgi zamiri -ki",
+    baglac: "Bağlaç ki",
+    kalip: "Kalıplaşmış ki"
+};
+
+// ===================== OYUN DEĞİŞKENLERİ =====================
+const flowers = ["🌸","🌼","🌷","🌻","🌹","🌺","🪻","🪷","🌿"];
+let pool = [];
+let kiPool = [];
+let score = 0, combo = 0, maxCombo = 0, time = 60, selectedTime = 0;
+let gameMode = '', gardenStr = "", correctIdx = 0;
+let timerInterval = null, gameActive = true, currentQ = null;
+let highScore = 0, wrongAnswers = [], hardModeOptions = [];
+
+function loadHighScore() {
+    const saved = localStorage.getItem('yksFlowHighScore');
+    if (saved) highScore = parseInt(saved, 10);
+    updateRecordDisplay();
+}
+function saveHighScore(s) {
+    if (s > highScore) { highScore = s; localStorage.setItem('yksFlowHighScore', highScore); return true; }
+    return false;
+}
+function updateRecordDisplay() {
+    document.getElementById('record-score').textContent = highScore + " PTS";
+}
+function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+// ===================== MENÜ FONKSİYONLARI =====================
+function showModeMenu() {
+    document.getElementById('start-menu').style.display = 'none';
+    document.getElementById('mode-menu').style.display = 'flex';
+}
+function backToStart() {
+    document.getElementById('mode-menu').style.display = 'none';
+    document.getElementById('start-menu').style.display = 'flex';
+    resetModeSelection();
+}
+function selectMode(mode, btn) {
+    gameMode = mode;
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById('next-btn').disabled = false;
+}
+function resetModeSelection() {
+    gameMode = '';
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
+    document.getElementById('next-btn').disabled = true;
+}
+function showTimeMenu() {
+    if (!gameMode) return;
+    document.getElementById('mode-menu').style.display = 'none';
+    document.getElementById('time-menu').style.display = 'flex';
+}
+function backToMode() {
+    document.getElementById('time-menu').style.display = 'none';
+    document.getElementById('mode-menu').style.display = 'flex';
+    resetTimeSelection();
+}
+function resetTimeSelection() {
+    selectedTime = 0;
+    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+    document.getElementById('start-btn').disabled = true;
+}
+function selectTime(seconds, btn) {
+    selectedTime = seconds;
+    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById('start-btn').disabled = false;
+}
+
+// ===================== OYUN BAŞLATMA =====================
+function startGame() {
+    if (selectedTime === 0 || !gameMode) return;
+    time = selectedTime;
+    wrongAnswers = [];
+    document.getElementById('time-menu').style.display = 'none';
+    document.getElementById('game-content').style.display = 'block';
+
+    const mi = document.getElementById('mode-indicator');
+    if (gameMode === 'easy') { mi.textContent = '😊 Kolay Mod'; mi.className = 'mode-indicator mode-easy'; }
+    else if (gameMode === 'hard') { mi.textContent = '🔥 Zor Mod'; mi.className = 'mode-indicator mode-hard'; }
+    else { mi.textContent = '🔍 Ki Dedektifi'; mi.className = 'mode-indicator mode-ki'; }
+
+    if (gameMode === 'ki') {
+        document.getElementById('question-label').textContent = 'Yazım doğru mu?';
+        buildKiPool();
+        setupKiCards();
+    } else {
+        document.getElementById('question-label').textContent = 'Doğru yazımı seç:';
+        setupCards();
+        pool = [...masterList];
+        shuffle(pool);
+    }
+
+    nextQ();
+    updateDisplay();
+    timerInterval = setInterval(tick, 1000);
+}
+
+// ===================== NORMAL MOD =====================
+function setupCards() {
+    const c = document.getElementById('cards-container');
+    c.innerHTML = '';
+    const count = gameMode === 'easy' ? 2 : 4;
+    for (let i = 0; i < count; i++) {
+        const card = document.createElement('div');
+        card.className = gameMode === 'easy' ? 'card' : 'card card-hard';
+        card.id = `card${i}`;
+        card.onclick = () => checkAnswer(i);
+        card.innerHTML = `<div class="${gameMode === 'easy' ? 'card-text' : 'card-text card-text-hard'}" id="btn${i}-text">...</div>`;
+        c.appendChild(card);
+    }
+}
+
+function updateDisplay() {
+    document.getElementById('timer').textContent = time + "s";
+    document.getElementById('score').textContent = score + " PTS";
+    document.getElementById('combo').textContent = "🔥 " + combo;
+}
+
+function nextQ() {
+    if (gameMode === 'ki') { nextKiQ(); return; }
+    if (pool.length === 0) { pool = [...masterList]; shuffle(pool); }
+    currentQ = pool.pop();
+    if (gameMode === 'easy') setupEasyMode();
+    else setupHardMode();
+}
+
+function setupEasyMode() {
+    const rev = Math.random() > 0.5;
+    document.getElementById('btn0-text').textContent = rev ? currentQ['y'] : currentQ['d'];
+    document.getElementById('btn1-text').textContent = rev ? currentQ['d'] : currentQ['y'];
+    correctIdx = rev ? 1 : 0;
+    for (let i = 0; i < 2; i++) document.getElementById(`card${i}`).classList.remove('correct','wrong');
+}
+
+function setupHardMode() {
+    let temp = masterList.filter(item => item.d !== currentQ.d);
+    shuffle(temp);
+    const wrongs = temp.slice(0, 3).map(item => item.y);
+    hardModeOptions = shuffle([
+        { text: currentQ.d, correct: true },
+        { text: wrongs[0], correct: false },
+        { text: wrongs[1], correct: false },
+        { text: wrongs[2], correct: false }
+    ]);
+    correctIdx = hardModeOptions.findIndex(o => o.correct);
+    for (let i = 0; i < 4; i++) {
+        document.getElementById(`btn${i}-text`).textContent = hardModeOptions[i].text;
+        document.getElementById(`card${i}`).classList.remove('correct','wrong');
+    }
+}
+
+function checkAnswer(idx) {
+    if (!gameActive || time <= 0) return;
+    const timerEl = document.getElementById('timer');
+    if (idx === correctIdx) {
+        combo++; score += 10 * combo;
+        if (combo > maxCombo) maxCombo = combo;
+        if (combo % 5 === 0) {
+            time += 10;
+            timerEl.classList.add('time-bonus');
+            setTimeout(() => timerEl.classList.remove('time-bonus'), 500);
         }
-
-        function updateRecordDisplay() {
-            document.getElementById('record-score').textContent = highScore + " PTS";
+        document.getElementById(`card${idx}`).classList.add('correct');
+        if (combo % 3 === 0) {
+            gardenStr += flowers[Math.floor(Math.random() * flowers.length)];
+            document.getElementById('garden-text').textContent = gardenStr;
         }
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
+    } else {
+        combo = 0;
+        time = Math.max(0, time - 2);
+        if (gameMode === 'easy') {
+            wrongAnswers.push({ correct: currentQ.d, wrong: currentQ.y, mode: 'easy' });
+        } else {
+            const clickedText = hardModeOptions[idx].text;
+            const allWrongs = hardModeOptions.filter(o => !o.correct).map(o => o.text);
+            wrongAnswers.push({ correct: currentQ.d, selectedWrong: clickedText, allWrongOptions: allWrongs, mode: 'hard' });
         }
+        timerEl.classList.add('time-penalty');
+        setTimeout(() => timerEl.classList.remove('time-penalty'), 500);
+        document.getElementById(`card${idx}`).classList.add('wrong');
+    }
+    document.getElementById('score').textContent = score + " PTS";
+    document.getElementById('combo').textContent = "🔥 " + combo;
+    document.getElementById('timer').textContent = time + "s";
+    if (time <= 0) setTimeout(endGame, 300);
+    else setTimeout(nextQ, 300);
+}
 
-        function showModeMenu() {
-            document.getElementById('start-menu').style.display = 'none';
-            document.getElementById('mode-menu').style.display = 'flex';
+// ===================== Kİ DEDEKTİFİ MODU =====================
+function buildKiPool() {
+    kiPool = [];
+    const categories = Object.keys(kiDatabase.turler);
+    categories.forEach(cat => {
+        const tur = kiDatabase.turler[cat];
+        tur.d1.forEach(d1 => {
+            tur.d2.forEach(d2 => {
+                kiPool.push({ d1, d2, yazim: tur.yazim, aciklama: tur.aciklama, tip: tur.tip });
+            });
+        });
+    });
+    shuffle(kiPool);
+}
+
+function setupKiCards() {
+    const c = document.getElementById('cards-container');
+    c.innerHTML = `
+        <div class="ki-sentence-card">
+            <div class="ki-sentence-text" id="ki-sentence">...</div>
+        </div>
+        <div class="ki-answer-btns">
+            <button class="ki-btn ki-btn-correct" onclick="checkKiAnswer(true)">✓ DOĞRU</button>
+            <button class="ki-btn ki-btn-wrong" onclick="checkKiAnswer(false)">✗ YANLIŞ</button>
+        </div>
+    `;
+}
+
+let currentKiQ = null;
+let currentKiIsCorrect = false;
+
+function nextKiQ() {
+    if (kiPool.length === 0) { buildKiPool(); }
+    const item = kiPool.pop();
+
+    // Joker seç
+    const girisList = kiDatabase.jokerGiris;
+    const bitisList = kiDatabase.jokerBitis;
+    const useGiris = Math.random() > 0.3;
+    const useBitis = Math.random() > 0.4;
+    const giris = useGiris ? girisList[Math.floor(Math.random() * girisList.length)] + " " : "";
+    const bitis = useBitis ? " " + bitisList[Math.floor(Math.random() * bitisList.length)] : ".";
+
+    // %50 ihtimalle yanlış yaz
+    const showCorrect = Math.random() > 0.5;
+    currentKiIsCorrect = showCorrect;
+
+    let kiYazim = "";
+    if (item.yazim === "bitisik") {
+        kiYazim = showCorrect ? (item.d1 + "ki") : (item.d1 + " ki");
+    } else {
+        kiYazim = showCorrect ? (item.d1 + " ki") : (item.d1 + "ki");
+    }
+
+    const sentence = giris + kiYazim + " " + item.d2 + bitis;
+
+    currentKiQ = { ...item, sentence, showCorrect };
+
+    const sentenceEl = document.getElementById('ki-sentence');
+    if (sentenceEl) {
+        // "ki" kısmını vurgula
+        const highlighted = sentence.replace(/(\w*ki\b|\bki\b)/gi, '<span class="ki-highlight">$1</span>');
+        sentenceEl.innerHTML = highlighted;
+    }
+
+    // Butonları sıfırla
+    document.querySelectorAll('.ki-btn').forEach(b => {
+        b.style.opacity = '1';
+        b.style.pointerEvents = 'auto';
+    });
+}
+
+function checkKiAnswer(userSaidCorrect) {
+    if (!gameActive || time <= 0) return;
+    const timerEl = document.getElementById('timer');
+
+    // Butonları geçici devre dışı bırak
+    document.querySelectorAll('.ki-btn').forEach(b => {
+        b.style.opacity = '0.6';
+        b.style.pointerEvents = 'none';
+    });
+
+    const isRight = (userSaidCorrect === currentKiIsCorrect);
+
+    if (isRight) {
+        combo++; score += 10 * combo;
+        if (combo > maxCombo) maxCombo = combo;
+        if (combo % 5 === 0) {
+            time += 10;
+            timerEl.classList.add('time-bonus');
+            setTimeout(() => timerEl.classList.remove('time-bonus'), 500);
         }
-
-        function backToStart() {
-            document.getElementById('mode-menu').style.display = 'none';
-            document.getElementById('start-menu').style.display = 'flex';
-            resetModeSelection();
+        if (combo % 3 === 0) {
+            gardenStr += flowers[Math.floor(Math.random() * flowers.length)];
+            document.getElementById('garden-text').textContent = gardenStr;
         }
+    } else {
+        combo = 0;
+        time = Math.max(0, time - 2);
+        timerEl.classList.add('time-penalty');
+        setTimeout(() => timerEl.classList.remove('time-penalty'), 500);
+        wrongAnswers.push({
+            mode: 'ki',
+            sentence: currentKiQ.sentence,
+            showCorrect: currentKiQ.showCorrect,
+            aciklama: currentKiQ.aciklama,
+            tip: currentKiQ.tip,
+            userSaidCorrect
+        });
+    }
 
-        function selectMode(mode, btn) {
-            gameMode = mode;
-            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            document.getElementById('next-btn').disabled = false;
-        }
+    document.getElementById('score').textContent = score + " PTS";
+    document.getElementById('combo').textContent = "🔥 " + combo;
+    document.getElementById('timer').textContent = time + "s";
 
-        function resetModeSelection() {
-            gameMode = '';
-            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
-            document.getElementById('next-btn').disabled = true;
-        }
+    if (time <= 0) setTimeout(endGame, 300);
+    else setTimeout(nextQ, 400);
+}
 
-        function showTimeMenu() {
-            if (!gameMode) return;
-            document.getElementById('mode-menu').style.display = 'none';
-            document.getElementById('time-menu').style.display = 'flex';
-        }
+// ===================== TIMER & BITIŞ =====================
+function tick() {
+    if (time > 0) {
+        time--;
+        document.getElementById('timer').textContent = time + "s";
+        if (time <= 0) endGame();
+    }
+}
 
-        function backToMode() {
-            document.getElementById('time-menu').style.display = 'none';
-            document.getElementById('mode-menu').style.display = 'flex';
-            resetTimeSelection();
-        }
+function endGame() {
+    gameActive = false;
+    clearInterval(timerInterval);
+    const isNewRecord = saveHighScore(score);
+    document.getElementById('game-content').style.display = 'none';
+    document.getElementById('game-over').style.display = 'block';
+    const finalEl = document.getElementById('final-score');
+    finalEl.textContent = score + " PTS";
+    if (isNewRecord) {
+        finalEl.classList.add('new-record');
+        document.querySelector('.game-over h2').textContent = "🏆 YENİ REKOR!";
+        document.querySelector('.game-over h2').style.color = "#FFD700";
+    } else {
+        finalEl.classList.remove('new-record');
+        document.querySelector('.game-over h2').textContent = "BİTTİ!";
+        document.querySelector('.game-over h2').style.color = "#D32F2F";
+    }
+    document.getElementById('max-combo-display').textContent = "🔥 En Yüksek Combo: " + maxCombo;
+    const reviewBtn = document.querySelector('.review-btn');
+    if (wrongAnswers.length === 0) { reviewBtn.style.display = 'none'; }
+    else { reviewBtn.style.display = 'block'; reviewBtn.textContent = `📋 Hataları Gözden Geçir (${wrongAnswers.length})`; }
+}
 
-        function resetTimeSelection() {
-            selectedTime = 0;
-            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
-            document.getElementById('start-btn').disabled = true;
-        }
+// ===================== REVIEW =====================
+function showReview() {
+    const reviewScreen = document.getElementById('review-screen');
+    const mistakeList = document.getElementById('mistake-list');
+    mistakeList.innerHTML = '';
 
-        function selectTime(seconds, btn) {
-            selectedTime = seconds;
-            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            document.getElementById('start-btn').disabled = false;
-        }
+    if (gameMode === 'hard') reviewScreen.classList.add('hard-mode-review');
+    else reviewScreen.classList.remove('hard-mode-review');
 
-        function startGame() {
-            if (selectedTime === 0 || !gameMode) return;
-            
-            time = selectedTime;
-            wrongAnswers = [];
-            
-            document.getElementById('time-menu').style.display = 'none';
-            document.getElementById('game-content').style.display = 'block';
-            
-            const modeIndicator = document.getElementById('mode-indicator');
-            if (gameMode === 'easy') {
-                modeIndicator.textContent = '😊 Kolay Mod';
-                modeIndicator.className = 'mode-indicator mode-easy';
-            } else {
-                modeIndicator.textContent = '🔥 Zor Mod';
-                modeIndicator.className = 'mode-indicator mode-hard';
-            }
-            
-            setupCards();
-            pool = [...masterList];
-            shuffle(pool);
-            nextQ();
-            updateDisplay();
-            timerInterval = setInterval(tick, 1000);
-        }
-
-        function setupCards() {
-            const container = document.getElementById('cards-container');
-            container.innerHTML = '';
-            
-            if (gameMode === 'easy') {
-                for (let i = 0; i < 2; i++) {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.id = `card${i}`;
-                    card.onclick = () => checkAnswer(i);
-                    card.innerHTML = `<div class="card-text" id="btn${i}-text">...</div>`;
-                    container.appendChild(card);
-                }
-            } else {
-                for (let i = 0; i < 4; i++) {
-                    const card = document.createElement('div');
-                    card.className = 'card card-hard';
-                    card.id = `card${i}`;
-                    card.onclick = () => checkAnswer(i);
-                    card.innerHTML = `<div class="card-text card-text-hard" id="btn${i}-text">...</div>`;
-                    container.appendChild(card);
-                }
-            }
-        }
-
-        function updateDisplay() {
-            document.getElementById('timer').textContent = time + "s";
-            document.getElementById('score').textContent = score + " PTS";
-            document.getElementById('combo').textContent = "🔥 " + combo;
-        }
-
-        function nextQ() {
-            if (pool.length === 0) {
-                pool = [...masterList];
-                shuffle(pool);
-            }
-            currentQ = pool.pop();
-            
-            if (gameMode === 'easy') {
-                setupEasyMode();
-            } else {
-                setupHardMode();
-            }
-        }
-
-        function setupEasyMode() {
-            const rev = Math.random() > 0.5;
-            
-            if (rev) {
-                document.getElementById('btn0-text').textContent = currentQ['y'];
-                document.getElementById('btn1-text').textContent = currentQ['d'];
-                correctIdx = 1;
-            } else {
-                document.getElementById('btn0-text').textContent = currentQ['d'];
-                document.getElementById('btn1-text').textContent = currentQ['y'];
-                correctIdx = 0;
-            }
-
-            for (let i = 0; i < 2; i++) {
-                document.getElementById(`card${i}`).classList.remove('correct', 'wrong');
-            }
-        }
-
-        function setupHardMode() {
-            let otherOptions = [];
-            let tempPool = masterList.filter(item => item.d !== currentQ.d);
-            shuffle(tempPool);
-            otherOptions = tempPool.slice(0, 3).map(item => item.y);
-            
-            hardModeOptions = [
-                { text: currentQ.d, correct: true },
-                { text: otherOptions[0], correct: false },
-                { text: otherOptions[1], correct: false },
-                { text: otherOptions[2], correct: false }
-            ];
-            
-            shuffle(hardModeOptions);
-            correctIdx = hardModeOptions.findIndex(opt => opt.correct);
-            
-            for (let i = 0; i < 4; i++) {
-                document.getElementById(`btn${i}-text`).textContent = hardModeOptions[i].text;
-                document.getElementById(`card${i}`).classList.remove('correct', 'wrong');
-            }
-        }
-
-        function checkAnswer(idx) {
-            if (!gameActive || time <= 0) return;
-
-            const timerEl = document.getElementById('timer');
-            const numCards = gameMode === 'easy' ? 2 : 4;
-
-            if (idx === correctIdx) {
-                combo++;
-                score += 10 * combo;
-                
-                if (combo > maxCombo) {
-                    maxCombo = combo;
-                }
-                
-                if (combo % 5 === 0) {
-                    time += 10;
-                    timerEl.classList.add('time-bonus');
-                    setTimeout(() => timerEl.classList.remove('time-bonus'), 500);
-                }
-                
-                document.getElementById(`card${idx}`).classList.add('correct');
-
-                if (combo % 3 === 0) {
-                    gardenStr += flowers[Math.floor(Math.random() * flowers.length)];
-                    document.getElementById('garden-text').textContent = gardenStr;
-                }
-            } else {
-                combo = 0;
-                time = Math.max(0, time - 2);
-                
-                if (gameMode === 'easy') {
-                    wrongAnswers.push({
-                        correct: currentQ.d,
-                        wrong: currentQ.y,
-                        mode: 'easy'
-                    });
-                } else {
-                    const clickedText = hardModeOptions[idx].text;
-                    const allWrongOptions = hardModeOptions
-                        .filter(opt => !opt.correct)
-                        .map(opt => opt.text);
-                    
-                    wrongAnswers.push({
-                        correct: currentQ.d,
-                        selectedWrong: clickedText,
-                        allWrongOptions: allWrongOptions,
-                        mode: 'hard'
-                    });
-                }
-                
-                timerEl.classList.add('time-penalty');
-                setTimeout(() => timerEl.classList.remove('time-penalty'), 500);
-                
-                document.getElementById(`card${idx}`).classList.add('wrong');
-            }
-
-            document.getElementById('score').textContent = score + " PTS";
-            document.getElementById('combo').textContent = "🔥 " + combo;
-            document.getElementById('timer').textContent = time + "s";
-
-            if (time <= 0) {
-                setTimeout(endGame, 300);
-            } else {
-                setTimeout(nextQ, 300);
-            }
-        }
-
-        function tick() {
-            if (time > 0) {
-                time--;
-                document.getElementById('timer').textContent = time + "s";
-                if (time <= 0) {
-                    endGame();
-                }
-            }
-        }
-
-        function endGame() {
-            gameActive = false;
-            clearInterval(timerInterval);
-            
-            const isNewRecord = saveHighScore(score);
-            
-            document.getElementById('game-content').style.display = 'none';
-            document.getElementById('game-over').style.display = 'block';
-            
-            const finalScoreEl = document.getElementById('final-score');
-            finalScoreEl.textContent = score + " PTS";
-            
-            if (isNewRecord) {
-                finalScoreEl.classList.add('new-record');
-                document.querySelector('.game-over h2').textContent = "🏆 YENİ REKOR!";
-                document.querySelector('.game-over h2').style.color = "#FFD700";
-            } else {
-                finalScoreEl.classList.remove('new-record');
-                document.querySelector('.game-over h2').textContent = "BİTTİ!";
-                document.querySelector('.game-over h2').style.color = "#D32F2F";
-            }
-            
-            document.getElementById('max-combo-display').textContent = "🔥 En Yüksek Combo: " + maxCombo;
-            
-            const reviewBtn = document.querySelector('.review-btn');
-            if (wrongAnswers.length === 0) {
-                reviewBtn.style.display = 'none';
-            } else {
-                reviewBtn.style.display = 'block';
-                reviewBtn.textContent = `📋 Hataları Gözden Geçir (${wrongAnswers.length})`;
-            }
-        }
-
-        function showReview() {
-            const reviewScreen = document.getElementById('review-screen');
-            const mistakeList = document.getElementById('mistake-list');
-            
-            mistakeList.innerHTML = '';
-            
-            if (gameMode === 'hard') {
-                reviewScreen.classList.add('hard-mode-review');
-            } else {
-                reviewScreen.classList.remove('hard-mode-review');
-            }
-            
-            if (wrongAnswers.length === 0) {
-                mistakeList.innerHTML = `
-                    <div class="no-mistakes">
-                        <div class="no-mistakes-icon">🎉</div>
-                        <div class="no-mistakes-text">Mükemmel!<br>Hiç hata yapmadın!</div>
+    if (wrongAnswers.length === 0) {
+        mistakeList.innerHTML = `<div class="no-mistakes"><div class="no-mistakes-icon">🎉</div><div class="no-mistakes-text">Mükemmel!<br>Hiç hata yapmadın!</div></div>`;
+    } else {
+        wrongAnswers.forEach((mistake, index) => {
+            const item = document.createElement('div');
+            item.className = 'mistake-item';
+            if (mistake.mode === 'easy') {
+                item.innerHTML = `<div class="mistake-row"><span class="mistake-number">${index+1}</span><span class="wrong-answer">${mistake.wrong}</span><span class="arrow-icon">→</span><span class="correct-answer">${mistake.correct}</span></div>`;
+            } else if (mistake.mode === 'hard') {
+                const otherWrongs = mistake.allWrongOptions.filter(w => w !== mistake.selectedWrong);
+                item.innerHTML = `<div class="mistake-row"><span class="mistake-number">${index+1}</span><span class="correct-answer">${mistake.correct}</span></div><div class="all-wrong-options"><div class="wrong-option-label">❌ Tüm yanlış seçenekler:</div><div class="wrong-options-list"><span class="wrong-option-tag selected-wrong">${mistake.selectedWrong}</span>${otherWrongs.map(w => `<span class="wrong-option-tag">${w}</span>`).join('')}</div></div>`;
+            } else if (mistake.mode === 'ki') {
+                const userAnswer = mistake.userSaidCorrect ? "Doğru" : "Yanlış";
+                const correctAnswer = mistake.showCorrect ? "Doğru" : "Yanlış";
+                item.classList.add('ki-review-item');
+                item.innerHTML = `
+                    <div class="mistake-row">
+                        <span class="mistake-number">${index+1}</span>
+                        <span class="${tipRenk[mistake.tip]} ki-type-badge">${tipAd[mistake.tip]}</span>
                     </div>
+                    <div style="font-size:15px; color:#333; padding:8px; background:#f9f9f9; border-radius:8px;">
+                        "${mistake.sentence}"
+                    </div>
+                    <div class="mistake-row">
+                        <span class="wrong-answer">Senin cevabın: ${userAnswer}</span>
+                        <span class="arrow-icon">→</span>
+                        <span class="correct-answer">Doğru: ${correctAnswer}</span>
+                    </div>
+                    <div class="ki-explanation">💡 ${mistake.aciklama}</div>
                 `;
-            } else {
-                wrongAnswers.forEach((mistake, index) => {
-                    const item = document.createElement('div');
-                    item.className = 'mistake-item';
-                    
-                    if (mistake.mode === 'easy') {
-                        // Easy mode - simple display
-                        item.innerHTML = `
-                            <div class="mistake-row">
-                                <span class="mistake-number">${index + 1}</span>
-                                <span class="wrong-answer">${mistake.wrong}</span>
-                                <span class="arrow-icon">→</span>
-                                <span class="correct-answer">${mistake.correct}</span>
-                            </div>
-                        `;
-                    } else {
-                        // Hard mode - show all wrong options
-                        const otherWrongs = mistake.allWrongOptions.filter(w => w !== mistake.selectedWrong);
-                        
-                        item.innerHTML = `
-                            <div class="mistake-row">
-                                <span class="mistake-number">${index + 1}</span>
-                                <span class="correct-answer">${mistake.correct}</span>
-                            </div>
-                            <div class="all-wrong-options">
-                                <div class="wrong-option-label">❌ Tüm yanlış seçenekler:</div>
-                                <div class="wrong-options-list">
-                                    <span class="wrong-option-tag selected-wrong">${mistake.selectedWrong}</span>
-                                    ${otherWrongs.map(w => `<span class="wrong-option-tag">${w}</span>`).join('')}
-                                </div>
-                            </div>
-                        `;
-                    }
-                    
-                    mistakeList.appendChild(item);
-                });
             }
-            
-            reviewScreen.style.display = 'block';
-        }
+            mistakeList.appendChild(item);
+        });
+    }
+    reviewScreen.style.display = 'block';
+}
 
-        function closeReview() {
-            document.getElementById('review-screen').style.display = 'none';
-        }
+function closeReview() {
+    document.getElementById('review-screen').style.display = 'none';
+}
 
-        function restartGame() {
-            pool = [];
-            score = 0;
-            combo = 0;
-            maxCombo = 0;
-            gardenStr = "";
-            gameActive = true;
-            selectedTime = 0;
-            gameMode = '';
-            wrongAnswers = [];
-            hardModeOptions = [];
-            
-            updateRecordDisplay();
-            
-            document.getElementById('game-over').style.display = 'none';
-            document.getElementById('start-menu').style.display = 'flex';
-            document.getElementById('game-content').style.display = 'none';
-            
-            resetModeSelection();
-            resetTimeSelection();
-            document.getElementById('garden-text').textContent = "";
-        }
+function restartGame() {
+    pool = []; kiPool = [];
+    score = 0; combo = 0; maxCombo = 0; gardenStr = "";
+    gameActive = true; selectedTime = 0; gameMode = '';
+    wrongAnswers = []; hardModeOptions = [];
+    currentKiQ = null;
+    updateRecordDisplay();
+    document.getElementById('game-over').style.display = 'none';
+    document.getElementById('start-menu').style.display = 'flex';
+    document.getElementById('game-content').style.display = 'none';
+    resetModeSelection();
+    resetTimeSelection();
+    document.getElementById('garden-text').textContent = "";
+}
 
-        loadHighScore();
-    </script>
+loadHighScore();
+</script>
 </body>
 </html>

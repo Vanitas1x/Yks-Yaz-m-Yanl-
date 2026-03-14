@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YKS Flow - Kelime Testi</title>
+    <title>YKS Flow</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #E1F5FE 0%, #B3E5FC 100%);
@@ -15,6 +16,7 @@
             align-items: center;
             padding: 20px;
         }
+
         .game-container {
             width: 100%;
             max-width: 400px;
@@ -26,12 +28,14 @@
             position: relative;
             overflow: hidden;
         }
+
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
+
         .timer-box, .combo-box {
             background: white;
             border: 2px solid #0288D1;
@@ -40,10 +44,13 @@
             text-align: center;
             width: 80px;
         }
+
         .timer-box { border-color: #D32F2F; }
         .combo-box { border-color: #F06292; }
+
         .timer { font-size: 18px; font-weight: bold; color: #D32F2F; }
         .combo { font-size: 18px; font-weight: bold; color: #F06292; }
+
         .score-box {
             background: white;
             border: 2px solid #0288D1;
@@ -51,7 +58,9 @@
             padding: 10px 20px;
             text-align: center;
         }
+
         .score { font-size: 22px; font-weight: bold; color: #0288D1; }
+
         .mode-indicator {
             text-align: center;
             margin-bottom: 10px;
@@ -62,11 +71,90 @@
             display: inline-block;
             align-self: center;
         }
+
         .mode-easy { background: #E8F5E9; color: #388E3C; border: 2px solid #81C784; }
         .mode-hard { background: #FFEBEE; color: #C62828; border: 2px solid #EF5350; }
-        .mode-ki { background: #EDE7F6; color: #512DA8; border: 2px solid #9575CD; }
-        .question-area { margin-top: 20px; margin-bottom: 20px; text-align: center; }
-        .question-label { font-size: 14px; color: #666; margin-bottom: 10px; }
+        .mode-ki { background: #F3E5F5; color: #6A1B9A; border: 2px solid #CE93D8; }
+
+        .question-area {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .question-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        /* Ki mode sentence display */
+        .ki-sentence-box {
+            background: linear-gradient(135deg, #EDE7F6 0%, #E1BEE7 100%);
+            border: 2.5px solid #9C27B0;
+            border-radius: 20px;
+            padding: 20px 15px;
+            margin: 10px 0 20px 0;
+            text-align: center;
+        }
+
+        .ki-sentence-text {
+            font-size: 17px;
+            font-weight: bold;
+            color: #4A148C;
+            line-height: 1.6;
+        }
+
+        .ki-d1 { color: #4A148C; }
+        .ki-d2 { color: #4A148C; }
+
+        .ki-highlight {
+            background: #9C27B0;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .ki-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .ki-answer-btn {
+            background: white;
+            border: 3px solid #9C27B0;
+            border-radius: 15px;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #4A148C;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ki-answer-btn:not(.correct):not(.wrong):hover {
+            background: linear-gradient(135deg, #CE93D8 0%, #BA68C8 100%);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .ki-answer-btn.correct {
+            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%) !important;
+            border-color: #388E3C !important;
+            color: white !important;
+            pointer-events: none;
+        }
+
+        .ki-answer-btn.wrong {
+            background: linear-gradient(135deg, #E57373 0%, #EF5350 100%) !important;
+            border-color: #D32F2F !important;
+            color: white !important;
+            pointer-events: none;
+        }
+
         .card {
             background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
             border: 2.5px solid #0288D1;
@@ -77,8 +165,10 @@
             transition: all 0.3s ease;
             text-align: center;
         }
+
         .card:hover { transform: scale(1.02); box-shadow: 0 8px 25px rgba(79, 195, 247, 0.4); }
         .card:active { transform: scale(0.98); }
+
         .card-text {
             font-size: 18px;
             font-weight: bold;
@@ -87,71 +177,31 @@
             padding: 12px 15px;
             border-radius: 15px;
         }
+
         .card-hard { padding: 15px 12px; margin: 8px 0; }
         .card-text-hard { font-size: 16px; padding: 10px 12px; }
-        /* Ki mode sentence card */
-        .ki-sentence-card {
-            background: linear-gradient(135deg, #EDE7F6 0%, #D1C4E9 100%);
-            border: 2.5px solid #7E57C2;
-            border-radius: 20px;
-            padding: 20px 15px;
-            margin: 10px 0 20px 0;
-            text-align: center;
-        }
-        .ki-sentence-text {
-            font-size: 17px;
-            font-weight: bold;
-            color: #311B92;
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            line-height: 1.6;
-        }
-        .ki-highlight {
-            background: #FFE082;
-            padding: 2px 4px;
-            border-radius: 4px;
-            color: #E65100;
-        }
-        .ki-answer-btns {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .ki-btn {
-            flex: 1;
-            padding: 18px 10px;
-            border: none;
-            border-radius: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .ki-btn-correct { background: linear-gradient(135deg, #81C784 0%, #4CAF50 100%); color: white; }
-        .ki-btn-wrong { background: linear-gradient(135deg, #EF5350 0%, #D32F2F 100%); color: white; }
-        .ki-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
-        .ki-type-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        .badge-sifat { background: #E3F2FD; color: #1565C0; border: 1px solid #90CAF9; }
-        .badge-zamir { background: #F3E5F5; color: #6A1B9A; border: 1px solid #CE93D8; }
-        .badge-baglac { background: #FFF3E0; color: #E65100; border: 1px solid #FFCC80; }
-        .badge-kalip { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
-        .garden { text-align: center; margin-top: 30px; padding: 15px; }
+
+        .garden { text-align: center; margin-top: 20px; padding: 10px; }
         .garden-label { font-size: 40px; }
         .garden-text { font-size: 16px; color: #666; margin-top: 10px; }
-        .game-over { display: none; text-align: center; padding: 40px 20px; }
+
+        .game-over {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
         .game-over h2 { color: #D32F2F; font-size: 28px; margin-bottom: 20px; }
         .final-score { font-size: 36px; font-weight: bold; color: #0288D1; margin-bottom: 10px; }
         .max-combo { font-size: 24px; font-weight: bold; color: #F06292; margin-bottom: 20px; }
-        .game-over-buttons { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+
+        .game-over-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
         .restart-btn, .review-btn {
             border: none;
             border-radius: 25px;
@@ -161,35 +211,128 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .restart-btn { background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); color: #1A237E; }
-        .review-btn { background: linear-gradient(135deg, #FF8A65 0%, #FF7043 100%); color: white; border: 2px solid #E64A19; }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            color: #1A237E;
+        }
+
+        .review-btn {
+            background: linear-gradient(135deg, #FF8A65 0%, #FF7043 100%);
+            color: white;
+            border: 2px solid #E64A19;
+        }
+
         .restart-btn:hover, .review-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
         .correct { background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%) !important; border-color: #388E3C !important; }
         .wrong { background: linear-gradient(135deg, #E57373 0%, #EF5350 100%) !important; border-color: #D32F2F !important; }
-        .time-bonus { animation: pulse 0.5s ease; color: #388E3C; }
-        .time-penalty { animation: shake 0.5s ease; color: #D32F2F; }
+
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-        .start-menu, .mode-menu { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 600px; text-align: center; }
+
+        .time-bonus { animation: pulse 0.5s ease; color: #388E3C !important; }
+        .time-penalty { animation: shake 0.5s ease; color: #D32F2F !important; }
+
+        .start-menu, .mode-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 600px;
+            text-align: center;
+        }
+
         .mode-menu { display: none; }
+
         .record-display {
             background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
             border: 3px solid #FF8F00;
             border-radius: 20px;
             padding: 15px 30px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(255,160,0,0.3);
+            box-shadow: 0 4px 15px rgba(255, 160, 0, 0.3);
             animation: glow 2s ease-in-out infinite alternate;
         }
+
         @keyframes glow {
-            from { box-shadow: 0 4px 15px rgba(255,160,0,0.3); }
-            to { box-shadow: 0 6px 25px rgba(255,160,0,0.5); }
+            from { box-shadow: 0 4px 15px rgba(255, 160, 0, 0.3); }
+            to { box-shadow: 0 6px 25px rgba(255, 160, 0, 0.5); }
         }
+
         .record-label { font-size: 14px; color: #E65100; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
         .record-score { font-size: 32px; font-weight: bold; color: #BF360C; margin-top: 5px; }
+
         .start-title { font-size: 32px; font-weight: bold; color: #0288D1; margin-bottom: 10px; }
         .start-subtitle { font-size: 18px; color: #666; margin-bottom: 40px; }
-        .mode-options { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 320px; }
+
+        /* Game type selection */
+        .game-type-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: 10px;
+        }
+
+        .game-type-btn {
+            background: white;
+            border: 3px solid;
+            border-radius: 20px;
+            padding: 20px 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .game-type-btn:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+
+        .game-type-btn.kelime {
+            border-color: #0288D1;
+            color: #01579B;
+        }
+
+        .game-type-btn.kelime:hover {
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            color: white;
+        }
+
+        .game-type-btn.ki {
+            border-color: #9C27B0;
+            color: #4A148C;
+        }
+
+        .game-type-btn.ki:hover {
+            background: linear-gradient(135deg, #CE93D8 0%, #BA68C8 100%);
+            color: white;
+        }
+
+        .game-type-btn.selected-type.kelime {
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            color: white;
+        }
+
+        .game-type-btn.selected-type.ki {
+            background: linear-gradient(135deg, #CE93D8 0%, #BA68C8 100%);
+            color: white;
+        }
+
+        .game-type-desc { font-size: 12px; font-weight: normal; opacity: 0.9; }
+
+        .mode-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 320px;
+        }
+
         .mode-btn {
             background: white;
             border: 3px solid;
@@ -204,16 +347,18 @@
             align-items: center;
             gap: 10px;
         }
+
         .mode-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
         .mode-btn.easy { border-color: #81C784; color: #388E3C; }
-        .mode-btn.easy:hover, .mode-btn.easy.selected { background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%); color: white; }
+        .mode-btn.easy:hover { background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%); color: white; }
         .mode-btn.hard { border-color: #EF5350; color: #C62828; }
-        .mode-btn.hard:hover, .mode-btn.hard.selected { background: linear-gradient(135deg, #EF5350 0%, #E53935 100%); color: white; }
-        .mode-btn.ki { border-color: #9575CD; color: #512DA8; }
-        .mode-btn.ki:hover, .mode-btn.ki.selected { background: linear-gradient(135deg, #9575CD 0%, #7E57C2 100%); color: white; }
-        .mode-btn.selected { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .mode-btn.hard:hover { background: linear-gradient(135deg, #EF5350 0%, #E53935 100%); color: white; }
+        .mode-btn.selected.easy { background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%); color: white; transform: scale(1.05); }
+        .mode-btn.selected.hard { background: linear-gradient(135deg, #EF5350 0%, #E53935 100%); color: white; transform: scale(1.05); }
         .mode-desc { font-size: 13px; font-weight: normal; opacity: 0.9; }
+
         .time-options { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 300px; }
+
         .time-btn {
             background: white;
             border: 3px solid #0288D1;
@@ -229,7 +374,10 @@
             justify-content: center;
             gap: 10px;
         }
-        .time-btn:hover, .time-btn.selected { background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); color: white; transform: scale(1.05); box-shadow: 0 8px 25px rgba(79,195,247,0.4); }
+
+        .time-btn:hover { background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); color: white; transform: scale(1.05); }
+        .time-btn.selected { background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); color: white; }
+
         .start-btn, .next-btn, .back-btn {
             border: none;
             border-radius: 25px;
@@ -241,16 +389,20 @@
             transition: all 0.3s ease;
             margin-top: 30px;
         }
+
         .start-btn { background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%); box-shadow: 0 4px 15px rgba(129,199,132,0.4); }
         .next-btn { background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); box-shadow: 0 4px 15px rgba(79,195,247,0.4); }
         .back-btn { background: #BDBDBD; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-size: 16px; padding: 12px 30px; margin-top: 15px; }
         .start-btn:hover, .next-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
         .back-btn:hover { background: #9E9E9E; transform: scale(1.05); }
         .start-btn:disabled, .next-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+
         .game-content { display: none; }
         .emoji-icon { font-size: 24px; }
+
         .new-record { animation: celebrate 1s ease; color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.8); }
         @keyframes celebrate { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.2) rotate(-5deg); } 50% { transform: scale(1.3) rotate(5deg); } 75% { transform: scale(1.2) rotate(-5deg); } }
+
         .review-screen {
             display: none;
             position: absolute;
@@ -261,31 +413,49 @@
             padding: 20px;
             overflow-y: auto;
         }
+
         .review-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #E0E0E0; }
         .review-title { font-size: 24px; font-weight: bold; color: #D32F2F; margin-bottom: 5px; }
         .review-subtitle { font-size: 14px; color: #666; }
         .mistake-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 80px; }
-        .mistake-item { background: white; border: 2px solid #E0E0E0; border-radius: 15px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+
+        .mistake-item {
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         .mistake-row { display: flex; align-items: center; gap: 10px; font-size: 16px; flex-wrap: wrap; }
         .wrong-answer { color: #D32F2F; text-decoration: line-through; font-weight: bold; }
         .correct-answer { color: #388E3C; font-weight: bold; background: #E8F5E9; padding: 5px 10px; border-radius: 10px; border: 2px solid #81C784; }
         .arrow-icon { color: #999; font-size: 20px; }
         .mistake-number { background: #FFCDD2; color: #D32F2F; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; flex-shrink: 0; }
+
         .hard-mode-review .mistake-item { border-color: #FFCDD2; background: linear-gradient(to bottom, #FFF5F5 0%, #ffffff 100%); }
+
         .all-wrong-options { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E0E0E0; }
         .wrong-option-label { font-size: 12px; color: #666; font-weight: bold; margin-bottom: 5px; }
         .wrong-options-list { display: flex; flex-wrap: wrap; gap: 8px; }
         .wrong-option-tag { background: #FFEBEE; color: #C62828; padding: 5px 10px; border-radius: 12px; font-size: 14px; font-weight: bold; border: 1px solid #EF9A9A; }
         .selected-wrong { background: #EF5350 !important; color: white !important; border-color: #C62828 !important; animation: shake 0.5s ease; }
+
+        /* Ki review styles */
+        .ki-review-item { border-color: #E1BEE7; background: linear-gradient(to bottom, #F3E5F5 0%, #ffffff 100%); }
+        .ki-correct-tag { background: #E8F5E9; color: #2E7D32; padding: 5px 10px; border-radius: 10px; font-size: 14px; font-weight: bold; border: 1px solid #81C784; }
+        .ki-wrong-tag { background: #EF5350; color: white; padding: 5px 10px; border-radius: 10px; font-size: 14px; font-weight: bold; }
+        .ki-sentence-review { font-size: 14px; color: #555; font-style: italic; margin-top: 5px; line-height: 1.5; }
+
         .review-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: white; padding: 15px 20px; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); display: flex; justify-content: center; gap: 10px; }
         .close-review-btn { background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); border: none; border-radius: 20px; padding: 12px 30px; font-size: 16px; font-weight: bold; color: white; cursor: pointer; transition: all 0.3s ease; }
         .close-review-btn:hover { transform: scale(1.05); }
+
         .no-mistakes { text-align: center; padding: 60px 20px; color: #388E3C; }
         .no-mistakes-icon { font-size: 60px; margin-bottom: 20px; }
         .no-mistakes-text { font-size: 20px; font-weight: bold; }
-        /* Ki review styles */
-        .ki-review-item { border-color: #D1C4E9 !important; background: linear-gradient(to bottom, #F3E5F5 0%, #ffffff 100%) !important; }
-        .ki-explanation { font-size: 13px; color: #555; margin-top: 8px; padding: 8px 10px; background: #F5F5F5; border-radius: 8px; border-left: 3px solid #9575CD; }
     </style>
 </head>
 <body>
@@ -298,8 +468,28 @@
             <div class="record-score" id="record-score">0 PTS</div>
         </div>
         <div class="start-title">🎯 YKS Flow</div>
-        <div class="start-subtitle">Kelime Testi</div>
-        <button class="start-btn" onclick="showModeMenu()">Oyuna Başla 🚀</button>
+        <div class="start-subtitle">Türkçe Testi</div>
+        <button class="start-btn" onclick="showGameTypeMenu()">Oyuna Başla 🚀</button>
+    </div>
+
+    <!-- Game Type Selection -->
+    <div class="mode-menu" id="game-type-menu">
+        <div class="start-title">📚 Konu Seç</div>
+        <div class="start-subtitle">Hangi konuyu test etmek istersin?</div>
+        <div class="game-type-options">
+            <button class="game-type-btn kelime" onclick="selectGameType('kelime', this)">
+                <span class="emoji-icon">✍️</span>
+                <span>Kelime Yazımı</span>
+                <span class="game-type-desc">Bitişik / ayrı yazım kuralları</span>
+            </button>
+            <button class="game-type-btn ki" onclick="selectGameType('ki', this)">
+                <span class="emoji-icon">🔍</span>
+                <span>Ki Dedektifi</span>
+                <span class="game-type-desc">Bağlaç / sıfat / zamir olan "ki"</span>
+            </button>
+        </div>
+        <button class="next-btn" id="game-type-next-btn" onclick="showModeMenu()" disabled>İleri →</button>
+        <button class="back-btn" onclick="backToStart()">← Geri</button>
     </div>
 
     <!-- Mode Selection Menu -->
@@ -310,21 +500,16 @@
             <button class="mode-btn easy" onclick="selectMode('easy', this)">
                 <span class="emoji-icon">😊</span>
                 <span>Kolay Mod</span>
-                <span class="mode-desc">2 seçenek (1 doğru, 1 yanlış)</span>
+                <span class="mode-desc" id="easy-desc">2 seçenek (1 doğru, 1 yanlış)</span>
             </button>
             <button class="mode-btn hard" onclick="selectMode('hard', this)">
                 <span class="emoji-icon">🔥</span>
                 <span>Zor Mod</span>
-                <span class="mode-desc">4 seçenek (1 doğru, 3 yanlış)</span>
-            </button>
-            <button class="mode-btn ki" onclick="selectMode('ki', this)">
-                <span class="emoji-icon">🔍</span>
-                <span>Ki Dedektifi</span>
-                <span class="mode-desc">Cümledeki "ki" doğru mu?</span>
+                <span class="mode-desc" id="hard-desc">4 seçenek (1 doğru, 3 yanlış)</span>
             </button>
         </div>
         <button class="next-btn" id="next-btn" onclick="showTimeMenu()" disabled>İleri →</button>
-        <button class="back-btn" onclick="backToStart()">← Geri</button>
+        <button class="back-btn" onclick="backToGameType()">← Geri</button>
     </div>
 
     <!-- Time Selection Menu -->
@@ -360,7 +545,7 @@
         </div>
     </div>
 
-    <!-- Game Over Screen -->
+    <!-- Game Over -->
     <div class="game-over" id="game-over">
         <h2>BİTTİ!</h2>
         <div class="final-score" id="final-score">0 PTS</div>
@@ -451,6 +636,9 @@ const masterList = [
 {"d":"herhangi bir","y":"herhangibir"},
 {"d":"vatansever","y":"vatan sever"},
 {"d":"hayvansever","y":"hayvan sever"},
+{"d":"terk etmek","y":"terketmek"},
+{"d":"ayırt etmek","y":"ayırdetmek"},
+{"d":"fark etmek","y":"farkatmek"},
 {"d":"değil mi","y":"değilmi"},
 {"d":"bir şey","y":"birşey"},
 {"d":"hiç kimse","y":"hiçkimse"},
@@ -462,33 +650,30 @@ const masterList = [
 {"d":"demek ki","y":"demekki"},
 {"d":"madem ki","y":"mademki"},
 {"d":"oysaki","y":"oysa ki"},
-{"d":"ola ki","y":"olaki"},
-{"d":"neyse ki","y":"neyseki"},
-{"d":"öyle ki","y":"öyleki"},
+{"d":"en az","y":"enaz"},
+{"d":"en çok","y":"ençok"},
+{"d":"bir türlü","y":"birtürlü"},
+{"d":"pekâlâ","y":"pek ala"},
 {"d":"söz konusu","y":"sözkonusu"},
 {"d":"bir araya","y":"biraraya"},
-{"d":"bir arada","y":"birarada"},
-{"d":"bir başına","y":"birbaşına"},
 {"d":"tek başına","y":"tekbaşına"},
 {"d":"yan yana","y":"yanyana"},
 {"d":"iç içe","y":"içiçe"},
 {"d":"yüz yüze","y":"yüzyüze"},
 {"d":"hemen hemen","y":"hemenhemen"},
 {"d":"az çok","y":"azçok"},
-{"d":"bile bile","y":"bilebile"},
 {"d":"her biri","y":"herbiri"},
 {"d":"hiçbiri","y":"hiç biri"},
+{"d":"art arda","y":"ardarda"},
 {"d":"iş birliği","y":"işbirliği"},
 {"d":"güç birliği","y":"güçbirliği"},
 {"d":"oy birliği","y":"oybirliği"},
-{"d":"el birliği","y":"elbirliği"},
+{"d":"vazgeçmek","y":"vaz geçmek"},
 {"d":"reddetmek","y":"red etmek"},
 {"d":"affetmek","y":"af etmek"},
 {"d":"hissetmek","y":"his etmek"},
-{"d":"cankurtaran","y":"can kurtaran"},
 {"d":"devekuşu","y":"deve kuşu"},
 {"d":"hamamböceği","y":"hamam böceği"},
-{"d":"uğurböceği","y":"uğur böceği"},
 {"d":"sivrisinek","y":"sivri sinek"},
 {"d":"buzdolabı","y":"buz dolabı"},
 {"d":"ipucu","y":"ip ucu"},
@@ -497,178 +682,234 @@ const masterList = [
 {"d":"havaalanı","y":"hava alanı"},
 {"d":"karayolu","y":"kara yolu"},
 {"d":"demiryolu","y":"demir yolu"},
-{"d":"havayolu","y":"hava yolu"},
 {"d":"anaokulu","y":"ana okulu"},
 {"d":"anayasa","y":"ana yasa"},
-{"d":"yükseköğretim","y":"yüksek öğretim"},
-{"d":"açıköğretim","y":"açık öğretim"},
+{"d":"ortaokul","y":"orta okul"},
 {"d":"yılbaşı","y":"yıl başı"},
 {"d":"bugün","y":"bu gün"},
 {"d":"şimdiki","y":"şimdi ki"},
 {"d":"buradaki","y":"burada ki"},
-{"d":"oradaki","y":"orada ki"},
-{"d":"muhatap","y":"muhattap"},
-{"d":"mütevazı","y":"mütevazi"},
-{"d":"müthiş","y":"mütiş"},
-{"d":"maalesef","y":"maleesef"},
-{"d":"metot","y":"metod"},
-{"d":"rastgele","y":"rasgele"},
-{"d":"röportaj","y":"röpörtaj"},
-{"d":"sürpriz","y":"süpriz"},
-{"d":"tahmin","y":"tamin"},
+{"d":"mademki","y":"madem ki"},
+{"d":"maliyet","y":"maliy et"},
+{"d":"matematik","y":"matamatik"},
+{"d":"meslektaş","y":"meslekdaş"},
+{"d":"mükemmel","y":"mükkemmel"},
 {"d":"tereddüt","y":"teredüt"},
 {"d":"yanlış","y":"yalnış"},
 {"d":"yalnız","y":"yanlız"},
-{"d":"mükemmel","y":"mükkemmel"},
-{"d":"perspektif","y":"perpektif"},
-{"d":"psikoloji","y":"pisikoloji"},
-{"d":"koordinasyon","y":"kordinasyon"},
-{"d":"mademki","y":"madem ki"},
-{"d":"matematik","y":"matamatik"},
-{"d":"meslektaş","y":"meslekdaş"}
+{"d":"rastgele","y":"rasgele"},
+{"d":"serbest","y":"serbes"},
+{"d":"şoför","y":"şöför"},
+{"d":"sürpriz","y":"süpriz"},
+{"d":"tahmin","y":"tamin"},
+{"d":"vicdan","y":"vijdan"},
+{"d":"zira","y":"zire"},
+{"d":"hükûmet","y":"hükümet"},
+{"d":"millî","y":"milli"},
+{"d":"resmî","y":"resmi"},
+{"d":"iddia","y":"iddaa"},
+{"d":"inkılap","y":"inkilap"},
+{"d":"istikrar","y":"istirar"},
+{"d":"istisna","y":"istina"},
+{"d":"koordinasyon","y":"kordinasyon"}
 ];
 
 // ===================== Kİ DEDEKTİFİ VERİ TABANI =====================
 const kiDatabase = {
     jokerGiris: [
         "Aslında", "Görünüşe göre", "Maalesef", "Bence", "Anlaşılan",
-        "Dikkatli bakarsan", "Belki de", "Genellikle", "Kim bilir",
-        "Ne yazık ki", "Aslına bakarsan", "İşin garip tarafı şu ki",
-        "Yapılan gözlemler gösteriyor ki", "Korkarım ki", "Şans eseri",
-        "Herkes biliyor ki", "Öyle sanıyorum ki", "Merak etme"
+        "Dikkatli bakarsan", "Belki de", "Kim bilir", "Şansımıza",
+        "Genel kanının aksine", "Aslına bakarsan",
+        "Ne yazık", "Üstelik", "Özellikle", "Meğerse",
+        "Bir düşünelim", "Tahminlere göre", "Söylentilere bakılırsa"
     ],
     jokerBitis: [
-        "durumu biraz değiştiriyor.", "herkesi şaşırttı.", "hiç de beklediğim gibi değil.",
-        "meselesi henüz çözülmedi.", "gerçekten çok ilginç.", "bugünlerde çok konuşuluyor.",
+        "durumu biraz değiştiriyor.", "herkesi şaşırttı.",
+        "hiç de beklediğim gibi değil.", "meselesi henüz çözülmedi.",
+        "gerçekten çok ilginç.", "bugünlerde çok konuşuluyor.",
         "insanı hayretler içinde bırakıyor.", "tüm mahallenin diline düşmüş.",
-        "zihnimi meşgul etmeye devam ediyor.", "kimse ne yapacağını bilmiyor."
+        "hayal ettiğimizden çok daha karmaşıkmış.",
+        "zihnimi meşgul etmeye devam ediyor."
     ],
     turler: {
         sifat: {
-            d1: ["masada", "yarın", "sokakta", "mutfakta", "duvarda", "gece", "karşıda",
-                 "sınıfta", "şehirde", "gökyüzünde", "fabrikada", "gemide", "ormanda",
-                 "köşede", "çantada", "resimdeki", "kitapta", "müzede", "dağda", "denizde",
-                 "sabah", "akşam", "önceki gün", "yukarıda", "aşağıda"],
-            d2: ["bardak", "sınav", "gürültü", "yemek", "tablo", "ışıklar", "bina",
-                 "öğrenciler", "ağaçlar", "kuşlar", "makine", "kaptan", "fırtına",
-                 "anahtar", "ses", "gölge", "fikir", "gizem", "sessizlik", "plan"],
-            yazim: "bitisik",
-            aciklama: "Bu bir sıfat yapan \"-ki\"dir. Yer/zaman bildiren kelimeye bitişik yazılır.",
-            tip: "sifat"
+            d1: ["Masada", "Yarın", "Sokakta", "Mutfakta", "Duvarda",
+                 "Gece", "Karşıda", "Sınıfta", "Şehirde", "Gökyüzünde",
+                 "Gemide", "Ormanda", "Dağda", "Denizde",
+                 "Sabahki", "Köşede", "Çantada", "Resimde",
+                 "Kitapta", "Müzede"],
+            d2: ["bardak", "sınav", "gürültü", "yemek", "tablo",
+                 "ışıklar", "bina", "öğrenciler", "ağaçlar", "kuşlar",
+                 "makine", "fırtına", "anahtar", "ses", "gölge",
+                 "detay", "düğme", "fikir", "gizem", "sessizlik"],
+            dogruYazim: "bitisik",
+            tur: "Sıfat Yapan",
+            aciklama: "Yer/zaman bildiren kelimeye bitişik yazılır."
         },
         zamir: {
-            d1: ["benim", "senin", "onun", "bizim", "sizin", "onların", "Ali'nin",
-                 "kardeşimin", "öğretmenin", "köpeğin", "Ayşe'nin", "komşunun",
-                 "müdürün", "kedinin", "arabanın", "çocuğun", "doktorun", "saatin"],
-            d2: ["kırılmış", "bozulmuş", "gelmedi", "kayıp", "bitmiş", "çalışıyor",
-                 "çok eski", "daha hızlı", "temizmiş", "yolda kalmış", "arızalanmış",
-                 "çalınmış", "nerede", "kaybolmuş", "eskimiş"],
-            yazim: "bitisik",
-            aciklama: "Bu bir ilgi zamiridir. Sahiplik ekinden (-ın/-im) sonra gelir, bitişik yazılır.",
-            tip: "zamir"
+            d1: ["Benim", "Senin", "Onun", "Bizim", "Sizin",
+                 "Ali'nin", "Kardeşimin", "Öğretmenin", "Ayşe'nin",
+                 "Komşunun", "Müdürün", "Kedinin", "Arabanın",
+                 "Çocuğun", "Doktorun", "Dünyanın", "Saatin"],
+            d2: ["kırılmış", "bozulmuş", "gelmedi", "kayıp", "bitmiş",
+                 "çalışıyor", "çok eski", "nerede", "daha hızlı",
+                 "temizmiş", "yolda kalmış", "arızalanmış",
+                 "eskimiş", "çalınmış", "bitmek üzere"],
+            dogruYazim: "bitisik",
+            tur: "İlgi Zamiri",
+            aciklama: "Sahiplik ekinden sonra gelir, ismin yerini tutar. Bitişik yazılır."
         },
         baglac: {
-            d1: ["anladım", "gördüm", "çalış", "duydum", "öyle", "inan", "sustu",
-                 "söyle", "bil", "bir baktım", "korktum", "farz et", "hissettim",
-                 "düşündüm", "fark ettim", "umdum", "hayal et", "şüphelen"],
-            d2: ["olmayacak", "herkes gitmiş", "kazanasın", "unutmuşsun",
-                 "vakit çok geç", "her şey bitti", "kimse yok", "yanılmışız",
-                 "zaman durdu", "ışıklar söndü", "sırlar açığa çıktı", "kapı kilitliydi"],
-            yazim: "ayri",
-            aciklama: "Bu bir bağlaçtır. Fiilden sonra gelir ve her zaman ayrı yazılır.",
-            tip: "baglac"
+            d1: ["Anladım", "Gördüm", "Çalış", "Duydum", "İnan",
+                 "Sustu", "Söyle", "Bil", "Korktum",
+                 "Hissettim", "Düşündüm", "Fark ettim",
+                 "Öyle", "Öyle bir", "Öylesine"],
+            d2: ["olmayacak.", "herkes gitmiş.", "kazanasın.",
+                 "unutmuşsun.", "vakit çok geç.", "her şey bitti.",
+                 "kimse yok.", "yanılmışız.", "zaman durdu.",
+                 "ışıklar söndü.", "sırlar açığa çıktı.",
+                 "her yer duman altı."],
+            dogruYazim: "ayri",
+            tur: "Bağlaç",
+            aciklama: "Fiilden sonra gelir, iki cümleyi bağlar. Ayrı yazılır."
         },
         kalip: {
-            d1: ["madem", "oysa", "halbu", "sanki", "meğer", "belki", "illa"],
-            d2: ["her şeyi biliyor", "işler değişti", "gelmedin", "haberim yoktu",
-                 "çok geçti", "gerçek buymuş", "başardık", "kaçınılmazdı",
-                 "kimse duymamış", "hep böyleydi"],
-            yazim: "bitisik",
-            aciklama: "Bu kalıplaşmış bir ifadedir (SOMBAHÇEM grubu). Bağlaç olmasına rağmen her zaman bitişik yazılır.",
-            tip: "kalip"
+            d1: ["Madem", "Oysa", "Halbu", "San", "Meğer", "İlla"],
+            d2: ["her şeyi biliyor.", "işler değişti.",
+                 "gelmedin.", "haberim yoktu.", "çok geçti.",
+                 "gerçek buymuş.", "başardık.", "kaçınılmazdı."],
+            dogruYazim: "bitisik",
+            tur: "Kalıplaşmış",
+            aciklama: "SOMBAHÇEM grubu: her zaman bitişik yazılır."
         }
     }
 };
 
-const tipRenk = {
-    sifat: "badge-sifat",
-    zamir: "badge-zamir",
-    baglac: "badge-baglac",
-    kalip: "badge-kalip"
-};
-
-const tipAd = {
-    sifat: "Sıfat yapan -ki",
-    zamir: "İlgi zamiri -ki",
-    baglac: "Bağlaç ki",
-    kalip: "Kalıplaşmış ki"
-};
-
 // ===================== OYUN DEĞİŞKENLERİ =====================
 const flowers = ["🌸","🌼","🌷","🌻","🌹","🌺","🪻","🪷","🌿"];
+
 let pool = [];
 let kiPool = [];
-let score = 0, combo = 0, maxCombo = 0, time = 60, selectedTime = 0;
-let gameMode = '', gardenStr = "", correctIdx = 0;
-let timerInterval = null, gameActive = true, currentQ = null;
-let highScore = 0, wrongAnswers = [], hardModeOptions = [];
+let score = 0;
+let combo = 0;
+let maxCombo = 0;
+let time = 60;
+let selectedTime = 0;
+let gameMode = '';
+let gameType = ''; // 'kelime' or 'ki'
+let gardenStr = "";
+let correctIdx = 0;
+let timerInterval = null;
+let gameActive = true;
+let currentQ = null;
+let currentKiQ = null;
+let highScore = 0;
+let wrongAnswers = [];
+let hardModeOptions = [];
 
+// ===================== HIGH SCORE =====================
 function loadHighScore() {
     const saved = localStorage.getItem('yksFlowHighScore');
     if (saved) highScore = parseInt(saved, 10);
     updateRecordDisplay();
 }
-function saveHighScore(s) {
-    if (s > highScore) { highScore = s; localStorage.setItem('yksFlowHighScore', highScore); return true; }
+
+function saveHighScore(newScore) {
+    if (newScore > highScore) {
+        highScore = newScore;
+        localStorage.setItem('yksFlowHighScore', highScore);
+        return true;
+    }
     return false;
 }
+
 function updateRecordDisplay() {
     document.getElementById('record-score').textContent = highScore + " PTS";
 }
-function shuffle(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
+
+// ===================== SHUFFLE =====================
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+        [array[i], array[j]] = [array[j], array[i]];
     }
-    return arr;
+    return array;
 }
 
-// ===================== MENÜ FONKSİYONLARI =====================
-function showModeMenu() {
+// ===================== MENU NAVİGASYON =====================
+function showGameTypeMenu() {
     document.getElementById('start-menu').style.display = 'none';
-    document.getElementById('mode-menu').style.display = 'flex';
+    document.getElementById('game-type-menu').style.display = 'flex';
 }
+
 function backToStart() {
+    document.getElementById('game-type-menu').style.display = 'none';
     document.getElementById('mode-menu').style.display = 'none';
     document.getElementById('start-menu').style.display = 'flex';
+    gameType = '';
+    document.querySelectorAll('.game-type-btn').forEach(b => b.classList.remove('selected-type'));
+    document.getElementById('game-type-next-btn').disabled = true;
+}
+
+function selectGameType(type, btn) {
+    gameType = type;
+    document.querySelectorAll('.game-type-btn').forEach(b => b.classList.remove('selected-type'));
+    btn.classList.add('selected-type');
+    document.getElementById('game-type-next-btn').disabled = false;
+
+    // Ki modunda mod açıklamalarını güncelle
+    if (type === 'ki') {
+        document.getElementById('easy-desc').textContent = 'Doğru mu? Yanlış mı? (2 seçenek)';
+        document.getElementById('hard-desc').textContent = '3 tür arasından doğrusunu bul (3 seçenek)';
+    } else {
+        document.getElementById('easy-desc').textContent = '2 seçenek (1 doğru, 1 yanlış)';
+        document.getElementById('hard-desc').textContent = '4 seçenek (1 doğru, 3 yanlış)';
+    }
+}
+
+function showModeMenu() {
+    if (!gameType) return;
+    document.getElementById('game-type-menu').style.display = 'none';
+    document.getElementById('mode-menu').style.display = 'flex';
+}
+
+function backToGameType() {
+    document.getElementById('mode-menu').style.display = 'none';
+    document.getElementById('game-type-menu').style.display = 'flex';
     resetModeSelection();
 }
+
 function selectMode(mode, btn) {
     gameMode = mode;
     document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
     document.getElementById('next-btn').disabled = false;
 }
+
 function resetModeSelection() {
     gameMode = '';
     document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
     document.getElementById('next-btn').disabled = true;
 }
+
 function showTimeMenu() {
     if (!gameMode) return;
     document.getElementById('mode-menu').style.display = 'none';
     document.getElementById('time-menu').style.display = 'flex';
 }
+
 function backToMode() {
     document.getElementById('time-menu').style.display = 'none';
     document.getElementById('mode-menu').style.display = 'flex';
     resetTimeSelection();
 }
+
 function resetTimeSelection() {
     selectedTime = 0;
     document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
     document.getElementById('start-btn').disabled = true;
 }
+
 function selectTime(seconds, btn) {
     selectedTime = seconds;
     document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
@@ -676,47 +917,291 @@ function selectTime(seconds, btn) {
     document.getElementById('start-btn').disabled = false;
 }
 
-// ===================== OYUN BAŞLATMA =====================
+// ===================== OYUN BAŞLAT =====================
 function startGame() {
     if (selectedTime === 0 || !gameMode) return;
     time = selectedTime;
     wrongAnswers = [];
+
     document.getElementById('time-menu').style.display = 'none';
     document.getElementById('game-content').style.display = 'block';
 
-    const mi = document.getElementById('mode-indicator');
-    if (gameMode === 'easy') { mi.textContent = '😊 Kolay Mod'; mi.className = 'mode-indicator mode-easy'; }
-    else if (gameMode === 'hard') { mi.textContent = '🔥 Zor Mod'; mi.className = 'mode-indicator mode-hard'; }
-    else { mi.textContent = '🔍 Ki Dedektifi'; mi.className = 'mode-indicator mode-ki'; }
-
-    if (gameMode === 'ki') {
-        document.getElementById('question-label').textContent = 'Yazım doğru mu?';
-        buildKiPool();
+    const modeIndicator = document.getElementById('mode-indicator');
+    if (gameType === 'ki') {
+        if (gameMode === 'easy') {
+            modeIndicator.textContent = '🔍 Ki Dedektifi - Kolay';
+        } else {
+            modeIndicator.textContent = '🔍 Ki Dedektifi - Zor';
+        }
+        modeIndicator.className = 'mode-indicator mode-ki';
+        document.getElementById('question-label').textContent = 'Cümledeki "ki" nasıl yazılmalı?';
         setupKiCards();
+        kiPool = buildKiPool();
+        nextKiQ();
     } else {
+        if (gameMode === 'easy') {
+            modeIndicator.textContent = '😊 Kolay Mod';
+            modeIndicator.className = 'mode-indicator mode-easy';
+        } else {
+            modeIndicator.textContent = '🔥 Zor Mod';
+            modeIndicator.className = 'mode-indicator mode-hard';
+        }
         document.getElementById('question-label').textContent = 'Doğru yazımı seç:';
         setupCards();
         pool = [...masterList];
         shuffle(pool);
+        nextQ();
     }
 
-    nextQ();
     updateDisplay();
     timerInterval = setInterval(tick, 1000);
 }
 
-// ===================== NORMAL MOD =====================
+// ===================== Ki HAVUZU =====================
+function buildKiPool() {
+    let pool = [];
+    const turler = Object.keys(kiDatabase.turler);
+    // Her türden 15 soru oluştur
+    turler.forEach(tur => {
+        const turData = kiDatabase.turler[tur];
+        for (let i = 0; i < 15; i++) {
+            const d1 = turData.d1[Math.floor(Math.random() * turData.d1.length)];
+            const d2 = turData.d2[Math.floor(Math.random() * turData.d2.length)];
+            const jokerG = kiDatabase.jokerGiris[Math.floor(Math.random() * kiDatabase.jokerGiris.length)];
+            const jokerB = kiDatabase.jokerBitis[Math.floor(Math.random() * kiDatabase.jokerBitis.length)];
+            pool.push({ tur, d1, d2, jokerG, jokerB, turData });
+        }
+    });
+    return shuffle(pool);
+}
+
+// ===================== Ki KARTLARI KUR =====================
+function setupKiCards() {
+    const container = document.getElementById('cards-container');
+    container.innerHTML = '';
+
+    // Cümle kutusu
+    const sentenceBox = document.createElement('div');
+    sentenceBox.className = 'ki-sentence-box';
+    sentenceBox.id = 'ki-sentence-box';
+    sentenceBox.innerHTML = '<div class="ki-sentence-text" id="ki-sentence-text">...</div>';
+    container.appendChild(sentenceBox);
+
+    const btnDiv = document.createElement('div');
+    btnDiv.className = 'ki-buttons';
+    btnDiv.id = 'ki-buttons';
+    container.appendChild(btnDiv);
+}
+
+// ===================== Ki SORU ÜRET =====================
+function nextKiQ() {
+    if (kiPool.length === 0) {
+        kiPool = buildKiPool();
+    }
+    currentKiQ = kiPool.pop();
+
+    const { tur, d1, d2, jokerG, jokerB, turData } = currentKiQ;
+    const dogruYazim = turData.dogruYazim; // 'bitisik' or 'ayri'
+
+    // Türe göre prefix kullan — bağlaç ve kalıpta joker giriş cümleyi bozuyor
+    const useJokerG = (tur === 'sifat' || tur === 'zamir') && Math.random() > 0.4;
+    const useJokerB = Math.random() > 0.4;
+
+    const prefix = useJokerG ? jokerG + ' ' : '';
+    const suffix = useJokerB ? ' ' + jokerB : '.';
+
+    // Butonları oluştur
+    const btnDiv = document.getElementById('ki-buttons');
+    btnDiv.innerHTML = '';
+
+    // Cümleyi oluşturmak için yardımcı fonksiyon
+    // "ki"yi her zaman boşlukla ayır, sonra CSS ile göster
+    function buildSentence(pre, word, kiSpan, post, suf) {
+        // pre: joker giriş, word: d1, kiSpan: vurgulu ki html, post: d2, suf: joker bitiş
+        return `${pre}<span class="ki-word">${word}</span>${kiSpan}<span class="ki-post"> ${post}</span>${suf}`;
+    }
+
+    if (gameMode === 'easy') {
+        const showCorrect = Math.random() > 0.5;
+        let kiPart = '';
+        if (showCorrect) {
+            // Doğru yazımı göster
+            if (dogruYazim === 'bitisik') {
+                kiPart = `<span class="ki-highlight">ki</span>`;  // bitişik: boşluk yok önce
+            } else {
+                kiPart = ` <span class="ki-highlight">ki</span>`; // ayrı: boşluk var
+            }
+        } else {
+            // Yanlış yazımı göster
+            if (dogruYazim === 'bitisik') {
+                kiPart = ` <span class="ki-highlight">ki</span>`; // yanlış: ayrı yazdık
+            } else {
+                kiPart = `<span class="ki-highlight">ki</span>`;  // yanlış: bitişik yazdık
+            }
+        }
+
+        const displaySentence = `${prefix}<span class="ki-d1">${d1}</span>${kiPart} <span class="ki-d2">${d2}</span>${suffix}`;
+        document.getElementById('ki-sentence-text').innerHTML = displaySentence;
+        currentKiQ.showedCorrect = showCorrect;
+
+        ['✅ Doğru', '❌ Yanlış'].forEach((label, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'ki-answer-btn';
+            btn.textContent = label;
+            const userSaysCorrect = idx === 0;
+            btn.onclick = () => checkKiEasy(userSaysCorrect, btn);
+            btnDiv.appendChild(btn);
+        });
+
+    } else {
+        // Zor: tür hangisi?
+        const allTurler = ['sifat', 'zamir', 'baglac', 'kalip'];
+        const turLabels = {
+            sifat: '🏷️ Sıfat Yapan "-ki"',
+            zamir: '👤 İlgi Zamiri "-ki"',
+            baglac: '🔗 Bağlaç "ki"',
+            kalip: '📌 Kalıplaşmış "ki"'
+        };
+
+        let options = [tur];
+        let others = allTurler.filter(t => t !== tur);
+        shuffle(others);
+        options = options.concat(others.slice(0, 2));
+        shuffle(options);
+
+        // Doğru yazımla göster
+        let kiPart = '';
+        if (dogruYazim === 'bitisik') {
+            kiPart = `<span class="ki-highlight">ki</span>`;
+        } else {
+            kiPart = ` <span class="ki-highlight">ki</span>`;
+        }
+
+        const displaySentence = `${prefix}<span class="ki-d1">${d1}</span>${kiPart} <span class="ki-d2">${d2}</span>${suffix}`;
+        document.getElementById('ki-sentence-text').innerHTML = displaySentence;
+        currentKiQ.correctTur = tur;
+
+        options.forEach((optTur) => {
+            const btn = document.createElement('button');
+            btn.className = 'ki-answer-btn';
+            btn.textContent = turLabels[optTur];
+            btn.onclick = () => checkKiHard(optTur, btn, turLabels);
+            btnDiv.appendChild(btn);
+        });
+    }
+}
+
+// ===================== Ki CEVAP KONTROL (KOLAY) =====================
+function checkKiEasy(userSaysCorrect, clickedBtn) {
+    if (!gameActive || time <= 0) return;
+
+    const isActuallyCorrect = currentKiQ.showedCorrect;
+    const isRight = (userSaysCorrect === isActuallyCorrect);
+
+    const allBtns = document.querySelectorAll('.ki-answer-btn');
+    allBtns.forEach(b => b.onclick = null);
+
+    if (isRight) {
+        combo++;
+        score += 10 * combo;
+        if (combo > maxCombo) maxCombo = combo;
+        if (combo % 5 === 0) {
+            time += 10;
+            document.getElementById('timer').classList.add('time-bonus');
+            setTimeout(() => document.getElementById('timer').classList.remove('time-bonus'), 500);
+        }
+        clickedBtn.classList.add('correct');
+        if (combo % 3 === 0) {
+            gardenStr += flowers[Math.floor(Math.random() * flowers.length)];
+            document.getElementById('garden-text').textContent = gardenStr;
+        }
+    } else {
+        combo = 0;
+        time = Math.max(0, time - 2);
+        clickedBtn.classList.add('wrong');
+        document.getElementById('timer').classList.add('time-penalty');
+        setTimeout(() => document.getElementById('timer').classList.remove('time-penalty'), 500);
+
+        wrongAnswers.push({
+            type: 'ki-easy',
+            sentence: document.getElementById('ki-sentence-text').innerHTML,
+            correctType: currentKiQ.turData.tur,
+            explanation: currentKiQ.turData.aciklama,
+            showedCorrect: currentKiQ.showedCorrect
+        });
+    }
+
+    updateDisplay();
+    if (time <= 0) {
+        setTimeout(endGame, 300);
+    } else {
+        setTimeout(nextKiQ, 500);
+    }
+}
+
+// ===================== Ki CEVAP KONTROL (ZOR) =====================
+function checkKiHard(selectedTur, clickedBtn, turLabels) {
+    if (!gameActive || time <= 0) return;
+
+    const allBtns = document.querySelectorAll('.ki-answer-btn');
+    allBtns.forEach(b => b.onclick = null);
+
+    if (selectedTur === currentKiQ.correctTur) {
+        combo++;
+        score += 10 * combo;
+        if (combo > maxCombo) maxCombo = combo;
+        if (combo % 5 === 0) {
+            time += 10;
+            document.getElementById('timer').classList.add('time-bonus');
+            setTimeout(() => document.getElementById('timer').classList.remove('time-bonus'), 500);
+        }
+        clickedBtn.classList.add('correct');
+        if (combo % 3 === 0) {
+            gardenStr += flowers[Math.floor(Math.random() * flowers.length)];
+            document.getElementById('garden-text').textContent = gardenStr;
+        }
+    } else {
+        combo = 0;
+        time = Math.max(0, time - 2);
+        clickedBtn.classList.add('wrong');
+        // Doğru cevabı göster
+        allBtns.forEach(b => {
+            if (b.textContent === turLabels[currentKiQ.correctTur]) {
+                b.classList.add('correct');
+            }
+        });
+        document.getElementById('timer').classList.add('time-penalty');
+        setTimeout(() => document.getElementById('timer').classList.remove('time-penalty'), 500);
+
+        wrongAnswers.push({
+            type: 'ki-hard',
+            sentence: document.getElementById('ki-sentence-text').innerHTML,
+            correctType: currentKiQ.turData.tur,
+            selectedType: selectedTur,
+            explanation: currentKiQ.turData.aciklama
+        });
+    }
+
+    updateDisplay();
+    if (time <= 0) {
+        setTimeout(endGame, 300);
+    } else {
+        setTimeout(nextKiQ, 600);
+    }
+}
+
+// ===================== KELIME MODU KARTLARI =====================
 function setupCards() {
-    const c = document.getElementById('cards-container');
-    c.innerHTML = '';
+    const container = document.getElementById('cards-container');
+    container.innerHTML = '';
     const count = gameMode === 'easy' ? 2 : 4;
     for (let i = 0; i < count; i++) {
         const card = document.createElement('div');
         card.className = gameMode === 'easy' ? 'card' : 'card card-hard';
         card.id = `card${i}`;
         card.onclick = () => checkAnswer(i);
-        card.innerHTML = `<div class="${gameMode === 'easy' ? 'card-text' : 'card-text card-text-hard'}" id="btn${i}-text">...</div>`;
-        c.appendChild(card);
+        card.innerHTML = `<div class="card-text ${gameMode === 'hard' ? 'card-text-hard' : ''}" id="btn${i}-text">...</div>`;
+        container.appendChild(card);
     }
 }
 
@@ -727,7 +1212,6 @@ function updateDisplay() {
 }
 
 function nextQ() {
-    if (gameMode === 'ki') { nextKiQ(); return; }
     if (pool.length === 0) { pool = [...masterList]; shuffle(pool); }
     currentQ = pool.pop();
     if (gameMode === 'easy') setupEasyMode();
@@ -736,34 +1220,43 @@ function nextQ() {
 
 function setupEasyMode() {
     const rev = Math.random() > 0.5;
-    document.getElementById('btn0-text').textContent = rev ? currentQ['y'] : currentQ['d'];
-    document.getElementById('btn1-text').textContent = rev ? currentQ['d'] : currentQ['y'];
-    correctIdx = rev ? 1 : 0;
-    for (let i = 0; i < 2; i++) document.getElementById(`card${i}`).classList.remove('correct','wrong');
+    if (rev) {
+        document.getElementById('btn0-text').textContent = currentQ['y'];
+        document.getElementById('btn1-text').textContent = currentQ['d'];
+        correctIdx = 1;
+    } else {
+        document.getElementById('btn0-text').textContent = currentQ['d'];
+        document.getElementById('btn1-text').textContent = currentQ['y'];
+        correctIdx = 0;
+    }
+    for (let i = 0; i < 2; i++) document.getElementById(`card${i}`).classList.remove('correct', 'wrong');
 }
 
 function setupHardMode() {
-    let temp = masterList.filter(item => item.d !== currentQ.d);
-    shuffle(temp);
-    const wrongs = temp.slice(0, 3).map(item => item.y);
-    hardModeOptions = shuffle([
+    let tempPool = masterList.filter(item => item.d !== currentQ.d);
+    shuffle(tempPool);
+    let otherOptions = tempPool.slice(0, 3).map(item => item.y);
+    hardModeOptions = [
         { text: currentQ.d, correct: true },
-        { text: wrongs[0], correct: false },
-        { text: wrongs[1], correct: false },
-        { text: wrongs[2], correct: false }
-    ]);
-    correctIdx = hardModeOptions.findIndex(o => o.correct);
+        { text: otherOptions[0], correct: false },
+        { text: otherOptions[1], correct: false },
+        { text: otherOptions[2], correct: false }
+    ];
+    shuffle(hardModeOptions);
+    correctIdx = hardModeOptions.findIndex(opt => opt.correct);
     for (let i = 0; i < 4; i++) {
         document.getElementById(`btn${i}-text`).textContent = hardModeOptions[i].text;
-        document.getElementById(`card${i}`).classList.remove('correct','wrong');
+        document.getElementById(`card${i}`).classList.remove('correct', 'wrong');
     }
 }
 
 function checkAnswer(idx) {
     if (!gameActive || time <= 0) return;
     const timerEl = document.getElementById('timer');
+
     if (idx === correctIdx) {
-        combo++; score += 10 * combo;
+        combo++;
+        score += 10 * combo;
         if (combo > maxCombo) maxCombo = combo;
         if (combo % 5 === 0) {
             time += 10;
@@ -779,143 +1272,26 @@ function checkAnswer(idx) {
         combo = 0;
         time = Math.max(0, time - 2);
         if (gameMode === 'easy') {
-            wrongAnswers.push({ correct: currentQ.d, wrong: currentQ.y, mode: 'easy' });
+            wrongAnswers.push({ type: 'kelime-easy', correct: currentQ.d, wrong: currentQ.y });
         } else {
             const clickedText = hardModeOptions[idx].text;
-            const allWrongs = hardModeOptions.filter(o => !o.correct).map(o => o.text);
-            wrongAnswers.push({ correct: currentQ.d, selectedWrong: clickedText, allWrongOptions: allWrongs, mode: 'hard' });
+            const allWrongOptions = hardModeOptions.filter(opt => !opt.correct).map(opt => opt.text);
+            wrongAnswers.push({ type: 'kelime-hard', correct: currentQ.d, selectedWrong: clickedText, allWrongOptions });
         }
         timerEl.classList.add('time-penalty');
         setTimeout(() => timerEl.classList.remove('time-penalty'), 500);
         document.getElementById(`card${idx}`).classList.add('wrong');
     }
+
     document.getElementById('score').textContent = score + " PTS";
     document.getElementById('combo').textContent = "🔥 " + combo;
     document.getElementById('timer').textContent = time + "s";
+
     if (time <= 0) setTimeout(endGame, 300);
     else setTimeout(nextQ, 300);
 }
 
-// ===================== Kİ DEDEKTİFİ MODU =====================
-function buildKiPool() {
-    kiPool = [];
-    const categories = Object.keys(kiDatabase.turler);
-    categories.forEach(cat => {
-        const tur = kiDatabase.turler[cat];
-        tur.d1.forEach(d1 => {
-            tur.d2.forEach(d2 => {
-                kiPool.push({ d1, d2, yazim: tur.yazim, aciklama: tur.aciklama, tip: tur.tip });
-            });
-        });
-    });
-    shuffle(kiPool);
-}
-
-function setupKiCards() {
-    const c = document.getElementById('cards-container');
-    c.innerHTML = `
-        <div class="ki-sentence-card">
-            <div class="ki-sentence-text" id="ki-sentence">...</div>
-        </div>
-        <div class="ki-answer-btns">
-            <button class="ki-btn ki-btn-correct" onclick="checkKiAnswer(true)">✓ DOĞRU</button>
-            <button class="ki-btn ki-btn-wrong" onclick="checkKiAnswer(false)">✗ YANLIŞ</button>
-        </div>
-    `;
-}
-
-let currentKiQ = null;
-let currentKiIsCorrect = false;
-
-function nextKiQ() {
-    if (kiPool.length === 0) { buildKiPool(); }
-    const item = kiPool.pop();
-
-    // Joker seç
-    const girisList = kiDatabase.jokerGiris;
-    const bitisList = kiDatabase.jokerBitis;
-    const useGiris = Math.random() > 0.3;
-    const useBitis = Math.random() > 0.4;
-    const giris = useGiris ? girisList[Math.floor(Math.random() * girisList.length)] + " " : "";
-    const bitis = useBitis ? " " + bitisList[Math.floor(Math.random() * bitisList.length)] : ".";
-
-    // %50 ihtimalle yanlış yaz
-    const showCorrect = Math.random() > 0.5;
-    currentKiIsCorrect = showCorrect;
-
-    let kiYazim = "";
-    if (item.yazim === "bitisik") {
-        kiYazim = showCorrect ? (item.d1 + "ki") : (item.d1 + " ki");
-    } else {
-        kiYazim = showCorrect ? (item.d1 + " ki") : (item.d1 + "ki");
-    }
-
-    const sentence = giris + kiYazim + " " + item.d2 + bitis;
-
-    currentKiQ = { ...item, sentence, showCorrect };
-
-    const sentenceEl = document.getElementById('ki-sentence');
-    if (sentenceEl) {
-        // "ki" kısmını vurgula
-        const highlighted = sentence.replace(/(\w*ki\b|\bki\b)/gi, '<span class="ki-highlight">$1</span>');
-        sentenceEl.innerHTML = highlighted;
-    }
-
-    // Butonları sıfırla
-    document.querySelectorAll('.ki-btn').forEach(b => {
-        b.style.opacity = '1';
-        b.style.pointerEvents = 'auto';
-    });
-}
-
-function checkKiAnswer(userSaidCorrect) {
-    if (!gameActive || time <= 0) return;
-    const timerEl = document.getElementById('timer');
-
-    // Butonları geçici devre dışı bırak
-    document.querySelectorAll('.ki-btn').forEach(b => {
-        b.style.opacity = '0.6';
-        b.style.pointerEvents = 'none';
-    });
-
-    const isRight = (userSaidCorrect === currentKiIsCorrect);
-
-    if (isRight) {
-        combo++; score += 10 * combo;
-        if (combo > maxCombo) maxCombo = combo;
-        if (combo % 5 === 0) {
-            time += 10;
-            timerEl.classList.add('time-bonus');
-            setTimeout(() => timerEl.classList.remove('time-bonus'), 500);
-        }
-        if (combo % 3 === 0) {
-            gardenStr += flowers[Math.floor(Math.random() * flowers.length)];
-            document.getElementById('garden-text').textContent = gardenStr;
-        }
-    } else {
-        combo = 0;
-        time = Math.max(0, time - 2);
-        timerEl.classList.add('time-penalty');
-        setTimeout(() => timerEl.classList.remove('time-penalty'), 500);
-        wrongAnswers.push({
-            mode: 'ki',
-            sentence: currentKiQ.sentence,
-            showCorrect: currentKiQ.showCorrect,
-            aciklama: currentKiQ.aciklama,
-            tip: currentKiQ.tip,
-            userSaidCorrect
-        });
-    }
-
-    document.getElementById('score').textContent = score + " PTS";
-    document.getElementById('combo').textContent = "🔥 " + combo;
-    document.getElementById('timer').textContent = time + "s";
-
-    if (time <= 0) setTimeout(endGame, 300);
-    else setTimeout(nextQ, 400);
-}
-
-// ===================== TIMER & BITIŞ =====================
+// ===================== TIMER =====================
 function tick() {
     if (time > 0) {
         time--;
@@ -924,27 +1300,35 @@ function tick() {
     }
 }
 
+// ===================== OYUN BİTİŞ =====================
 function endGame() {
     gameActive = false;
     clearInterval(timerInterval);
     const isNewRecord = saveHighScore(score);
     document.getElementById('game-content').style.display = 'none';
     document.getElementById('game-over').style.display = 'block';
-    const finalEl = document.getElementById('final-score');
-    finalEl.textContent = score + " PTS";
+
+    const finalScoreEl = document.getElementById('final-score');
+    finalScoreEl.textContent = score + " PTS";
+
     if (isNewRecord) {
-        finalEl.classList.add('new-record');
+        finalScoreEl.classList.add('new-record');
         document.querySelector('.game-over h2').textContent = "🏆 YENİ REKOR!";
         document.querySelector('.game-over h2').style.color = "#FFD700";
     } else {
-        finalEl.classList.remove('new-record');
+        finalScoreEl.classList.remove('new-record');
         document.querySelector('.game-over h2').textContent = "BİTTİ!";
         document.querySelector('.game-over h2').style.color = "#D32F2F";
     }
+
     document.getElementById('max-combo-display').textContent = "🔥 En Yüksek Combo: " + maxCombo;
     const reviewBtn = document.querySelector('.review-btn');
-    if (wrongAnswers.length === 0) { reviewBtn.style.display = 'none'; }
-    else { reviewBtn.style.display = 'block'; reviewBtn.textContent = `📋 Hataları Gözden Geçir (${wrongAnswers.length})`; }
+    if (wrongAnswers.length === 0) {
+        reviewBtn.style.display = 'none';
+    } else {
+        reviewBtn.style.display = 'block';
+        reviewBtn.textContent = `📋 Hataları Gözden Geçir (${wrongAnswers.length})`;
+    }
 }
 
 // ===================== REVIEW =====================
@@ -952,9 +1336,7 @@ function showReview() {
     const reviewScreen = document.getElementById('review-screen');
     const mistakeList = document.getElementById('mistake-list');
     mistakeList.innerHTML = '';
-
-    if (gameMode === 'hard') reviewScreen.classList.add('hard-mode-review');
-    else reviewScreen.classList.remove('hard-mode-review');
+    reviewScreen.classList.remove('hard-mode-review');
 
     if (wrongAnswers.length === 0) {
         mistakeList.innerHTML = `<div class="no-mistakes"><div class="no-mistakes-icon">🎉</div><div class="no-mistakes-text">Mükemmel!<br>Hiç hata yapmadın!</div></div>`;
@@ -962,31 +1344,53 @@ function showReview() {
         wrongAnswers.forEach((mistake, index) => {
             const item = document.createElement('div');
             item.className = 'mistake-item';
-            if (mistake.mode === 'easy') {
-                item.innerHTML = `<div class="mistake-row"><span class="mistake-number">${index+1}</span><span class="wrong-answer">${mistake.wrong}</span><span class="arrow-icon">→</span><span class="correct-answer">${mistake.correct}</span></div>`;
-            } else if (mistake.mode === 'hard') {
+
+            if (mistake.type === 'kelime-easy') {
+                item.innerHTML = `
+                    <div class="mistake-row">
+                        <span class="mistake-number">${index+1}</span>
+                        <span class="wrong-answer">${mistake.wrong}</span>
+                        <span class="arrow-icon">→</span>
+                        <span class="correct-answer">${mistake.correct}</span>
+                    </div>`;
+            } else if (mistake.type === 'kelime-hard') {
+                reviewScreen.classList.add('hard-mode-review');
                 const otherWrongs = mistake.allWrongOptions.filter(w => w !== mistake.selectedWrong);
-                item.innerHTML = `<div class="mistake-row"><span class="mistake-number">${index+1}</span><span class="correct-answer">${mistake.correct}</span></div><div class="all-wrong-options"><div class="wrong-option-label">❌ Tüm yanlış seçenekler:</div><div class="wrong-options-list"><span class="wrong-option-tag selected-wrong">${mistake.selectedWrong}</span>${otherWrongs.map(w => `<span class="wrong-option-tag">${w}</span>`).join('')}</div></div>`;
-            } else if (mistake.mode === 'ki') {
-                const userAnswer = mistake.userSaidCorrect ? "Doğru" : "Yanlış";
-                const correctAnswer = mistake.showCorrect ? "Doğru" : "Yanlış";
+                item.innerHTML = `
+                    <div class="mistake-row">
+                        <span class="mistake-number">${index+1}</span>
+                        <span class="correct-answer">${mistake.correct}</span>
+                    </div>
+                    <div class="all-wrong-options">
+                        <div class="wrong-option-label">❌ Tüm yanlış seçenekler:</div>
+                        <div class="wrong-options-list">
+                            <span class="wrong-option-tag selected-wrong">${mistake.selectedWrong}</span>
+                            ${otherWrongs.map(w => `<span class="wrong-option-tag">${w}</span>`).join('')}
+                        </div>
+                    </div>`;
+            } else if (mistake.type === 'ki-easy') {
                 item.classList.add('ki-review-item');
                 item.innerHTML = `
                     <div class="mistake-row">
                         <span class="mistake-number">${index+1}</span>
-                        <span class="${tipRenk[mistake.tip]} ki-type-badge">${tipAd[mistake.tip]}</span>
+                        <span style="font-weight:bold; color:#6A1B9A;">Tür: ${mistake.correctType}</span>
                     </div>
-                    <div style="font-size:15px; color:#333; padding:8px; background:#f9f9f9; border-radius:8px;">
-                        "${mistake.sentence}"
-                    </div>
+                    <div class="ki-sentence-review">${mistake.sentence}</div>
+                    <div style="font-size:13px; color:#555; margin-top:5px;">📌 ${mistake.explanation}</div>`;
+            } else if (mistake.type === 'ki-hard') {
+                item.classList.add('ki-review-item');
+                const turLabels = { sifat: 'Sıfat Yapan', zamir: 'İlgi Zamiri', baglac: 'Bağlaç', kalip: 'Kalıplaşmış' };
+                item.innerHTML = `
                     <div class="mistake-row">
-                        <span class="wrong-answer">Senin cevabın: ${userAnswer}</span>
+                        <span class="mistake-number">${index+1}</span>
+                        <span class="ki-wrong-tag">❌ ${turLabels[mistake.selectedType] || mistake.selectedType}</span>
                         <span class="arrow-icon">→</span>
-                        <span class="correct-answer">Doğru: ${correctAnswer}</span>
+                        <span class="ki-correct-tag">✅ ${mistake.correctType}</span>
                     </div>
-                    <div class="ki-explanation">💡 ${mistake.aciklama}</div>
-                `;
+                    <div class="ki-sentence-review">${mistake.sentence}</div>
+                    <div style="font-size:13px; color:#555; margin-top:5px;">📌 ${mistake.explanation}</div>`;
             }
+
             mistakeList.appendChild(item);
         });
     }
@@ -997,16 +1401,23 @@ function closeReview() {
     document.getElementById('review-screen').style.display = 'none';
 }
 
+// ===================== RESTART =====================
 function restartGame() {
     pool = []; kiPool = [];
-    score = 0; combo = 0; maxCombo = 0; gardenStr = "";
-    gameActive = true; selectedTime = 0; gameMode = '';
+    score = 0; combo = 0; maxCombo = 0;
+    gardenStr = ""; gameActive = true;
+    selectedTime = 0; gameMode = ''; gameType = '';
     wrongAnswers = []; hardModeOptions = [];
-    currentKiQ = null;
+
     updateRecordDisplay();
+
     document.getElementById('game-over').style.display = 'none';
     document.getElementById('start-menu').style.display = 'flex';
     document.getElementById('game-content').style.display = 'none';
+    document.getElementById('game-type-menu').style.display = 'none';
+
+    document.querySelectorAll('.game-type-btn').forEach(b => b.classList.remove('selected-type'));
+    document.getElementById('game-type-next-btn').disabled = true;
     resetModeSelection();
     resetTimeSelection();
     document.getElementById('garden-text').textContent = "";
